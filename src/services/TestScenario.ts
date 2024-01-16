@@ -1,6 +1,9 @@
-import { Muscle } from '../models/Muscle';
+import { Muscle, MusclePropertyValue } from '../models/Muscle';
 import { Answer, TestModel } from '../models/TestModel';
 import { beginTestGenerator } from './test_generators/BeginTestGenerator';
+import { endTestGenerator } from './test_generators/EndTestGenerator';
+import { functionsTestGenerator } from './test_generators/FunctionsTestGenerator';
+import { nameTestGenerator } from './test_generators/NameTestGenerator';
 import { TestGenerator } from './test_generators/TestGenerator';
 import { TestSettings } from './TestSettings';
 import { getRandomElement } from './utils/ArrayUtils';
@@ -11,9 +14,11 @@ export type Score = {
 }
 
 export class TestScenario {
-    private testGenerators: TestGenerator[] = [
-        beginTestGenerator
-        // nameTestGenerator,
+    private testGenerators: TestGenerator<MusclePropertyValue>[] = [
+        beginTestGenerator,
+        endTestGenerator,
+        functionsTestGenerator,
+        nameTestGenerator,
     ];
 
     private tests: TestModel[] = [];

@@ -1,6 +1,6 @@
 import { Muscle, MuscleProperty, MusclePropertyValue } from '../../models/Muscle';
 import { Answer } from '../../models/TestModel';
-import { TestSettings } from '../TestSettings';
+import { formatPropertyValueText } from '../utils/MusclePropertyUtils';
 import { DigitsRangeReplaceStrategy } from './digits_replace_strategies/DigitsRangeReplaceStrategy';
 import { SingleDigitReplaceStrategy } from './digits_replace_strategies/SingleDigitReplaceStrategy';
 import { VertebraRangeReplaceStrategy } from './digits_replace_strategies/VertebraRangeReplaceStrategy';
@@ -27,13 +27,8 @@ export class DigitsReplaceWrongAnswersGenerationStrategy implements WrongAnswers
         const result: Answer[] = [];
 
         const rightAnswers = muscles[rightAnswerIndex].getProperty(testProperty);
-        let text = '';
+        let text = formatPropertyValueText(rightAnswers);
         const exclusions: string[] = [];
-        if (rightAnswers instanceof String) {
-            text = rightAnswers as string;
-        } else if (Array.isArray(rightAnswers)) {
-            text = rightAnswers.join(TestSettings.DEFAULT_ANSWERS_SEPARATOR);
-        }
 
         const replaceStrategy = this.replaceStrategies.find((strategy) => strategy.isApplicable(text));
 
@@ -55,7 +50,7 @@ export class DigitsReplaceWrongAnswersGenerationStrategy implements WrongAnswers
 
     isApplicable<T extends MusclePropertyValue>(muscle: Muscle, testProperty: MuscleProperty<T>): boolean {
         const property = muscle.getProperty(testProperty);
-        if (property instanceof String) {
+        if (typeof property === 'string') {
             return this.checkIfContainsDigit(property);
         }
 

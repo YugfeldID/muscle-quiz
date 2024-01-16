@@ -1,8 +1,8 @@
+import patternMatches from '../../data/pattern_matches.json';
 import { Muscle, MuscleProperty, MusclePropertyValue } from '../../models/Muscle';
 import { Answer } from '../../models/TestModel';
-import patternMatches from '../../data/pattern_matches.json';
-import { TestSettings } from '../TestSettings';
 import { getRandomElement } from '../utils/ArrayUtils';
+import { formatPropertyValueText } from '../utils/MusclePropertyUtils';
 import { WrongAnswersGenerationOptions, WrongAnswersGenerationStrategy } from './WrongAnswersGenerationStrategy';
 
 type ReplacementModel = {
@@ -24,12 +24,7 @@ export class PatternReplaceWrongAnswersGenerationStrategy implements WrongAnswer
         const result: Answer[] = [];
 
         const rightAnswers = muscles[rightAnswerIndex].getProperty(testProperty);
-        let text = '';
-        if (rightAnswers instanceof String) {
-            text = rightAnswers as string;
-        } else if (Array.isArray(rightAnswers)) {
-            text = rightAnswers.join(TestSettings.DEFAULT_ANSWERS_SEPARATOR);
-        }
+        let text = formatPropertyValueText(rightAnswers);
 
         const exclusions: ReplacementModel[] = [];
         for (let i = 0; i < options.answersCount; i++) {

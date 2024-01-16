@@ -1,7 +1,7 @@
 import { Muscle, MuscleProperty, MusclePropertyValue } from '../../models/Muscle';
 import { Answer } from '../../models/TestModel';
-import { TestSettings } from '../TestSettings';
 import { getRandomIndex } from '../utils/ArrayUtils';
+import { formatPropertyValueText } from '../utils/MusclePropertyUtils';
 import { WrongAnswersGenerationOptions, WrongAnswersGenerationStrategy } from './WrongAnswersGenerationStrategy';
 
 export class SimpleWrongAnswersGenerationStrategy implements WrongAnswersGenerationStrategy {
@@ -22,13 +22,7 @@ export class SimpleWrongAnswersGenerationStrategy implements WrongAnswersGenerat
 
             excludedIndexes.push(wrongAnswerIndex);
             const propertyValue = muscles[wrongAnswerIndex].getProperty(testProperty);
-
-            let text = '';
-            if (propertyValue instanceof String) {
-                text = propertyValue as string;
-            } else if (Array.isArray(propertyValue)) {
-                text = (propertyValue as []).join(TestSettings.DEFAULT_ANSWERS_SEPARATOR)
-            }
+            let text = formatPropertyValueText(propertyValue);
 
             result.push({
                 text: text,

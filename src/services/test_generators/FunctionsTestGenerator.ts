@@ -1,8 +1,5 @@
 import { Muscle, MuscleProperty } from '../../models/Muscle';
 import {
-    DigitsReplaceWrongAnswersGenerationStrategy
-} from '../wrong_answer_strategies/DigitsReplaceWrongAnswersGenerationStrategy';
-import {
     NotCompleteWrongAnswersGenerationStrategy
 } from '../wrong_answer_strategies/NotCompleteWrongAnswersGenerationStrategy';
 import {
@@ -11,21 +8,20 @@ import {
 import { SimpleWrongAnswersGenerationStrategy } from '../wrong_answer_strategies/SimpleWrongAnswersGenerationStrategy';
 import { TestGenerator } from './TestGenerator';
 
-class BeginTestGenerator extends TestGenerator<string []> {
+class EndTestGenerator extends TestGenerator<string []> {
     wrongAnswersGenerators = [
         new SimpleWrongAnswersGenerationStrategy(),
-        new DigitsReplaceWrongAnswersGenerationStrategy(),
         new NotCompleteWrongAnswersGenerationStrategy(),
         new PatternReplaceWrongAnswersGenerationStrategy()
     ];
 
     getQuestion(muscle: Muscle): string {
-        return `Где начинается мышца ${muscle.getProperty(Muscle.rusName)}?`;
+        return `Назовите функции мышцы ${muscle.getProperty(Muscle.rusName)}?`;
     }
 
-    getTestMuscleProperty(): MuscleProperty<string []> {
-        return Muscle.begin;
+    getTestMuscleProperty(): MuscleProperty<string[]> {
+        return Muscle.functions;
     }
 }
 
-export const beginTestGenerator = new BeginTestGenerator();
+export const functionsTestGenerator = new EndTestGenerator();
