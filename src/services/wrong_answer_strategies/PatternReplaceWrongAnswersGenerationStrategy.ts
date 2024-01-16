@@ -1,6 +1,6 @@
 import { Muscle, MuscleProperty, MusclePropertyValue } from '../../models/Muscle';
 import { Answer } from '../../models/TestModel';
-import patternMatches from '../data/pattern_matches.json';
+import patternMatches from '../../data/pattern_matches.json';
 import { TestSettings } from '../TestSettings';
 import { getRandomElement } from '../utils/ArrayUtils';
 import { WrongAnswersGenerationOptions, WrongAnswersGenerationStrategy } from './WrongAnswersGenerationStrategy';

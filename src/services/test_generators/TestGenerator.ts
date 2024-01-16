@@ -29,12 +29,16 @@ export abstract class TestGenerator {
 
             let generator = this.wrongAnswersGenerators[generatorIndex];
             if (generator.isApplicable(muscles[rightAnswerIndex], testProperty)) {
-                result.push(...generator.getWrongAnswers(
+                generator.getWrongAnswers(
                     muscles,
                     rightAnswerIndex,
                     testProperty,
                     { answersCount: wrongAnswersCount }
-                ));
+                ).forEach(el => {
+                    if (result.every((existed) => existed.text !== el.text)) {
+                        result.push(el);
+                    }
+                });
             }
             excludedIndexes.push(generatorIndex);
             attemptsCount--;

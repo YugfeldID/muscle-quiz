@@ -11,8 +11,8 @@ import { TestGenerator } from './TestGenerator';
 class BeginTestGenerator extends TestGenerator {
     wrongAnswersGenerators = [
         new SimpleWrongAnswersGenerationStrategy(),
-        // new DigitsReplaceWrongAnswersGenerationStrategy(),
-        // new NotCompleteWrongAnswersGenerationStrategy(),
+        new DigitsReplaceWrongAnswersGenerationStrategy(),
+        new NotCompleteWrongAnswersGenerationStrategy(),
         new PatternReplaceWrongAnswersGenerationStrategy(),
     ];
 
