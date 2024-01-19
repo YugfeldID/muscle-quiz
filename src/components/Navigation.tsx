@@ -29,11 +29,11 @@ export function AppNavigation() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name="HomeScreen" component={HomeScreen}/>
-                <Stack.Screen name="MuscleGroupsScreen" component={MuscleGroupsScreen}/>
-                <Stack.Screen name="MuscleGroupScreen" component={MuscleGroupScreen}/>
-                <Stack.Screen name="MuscleScreen" component={MuscleScreen}/>
-                <Stack.Screen name="TestScreen" component={TestScreen}/>
+                <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ title: 'Главная' }}/>
+                <Stack.Screen name="MuscleGroupsScreen" component={MuscleGroupsScreen} options={{ title: 'Группы мышц' }}/>
+                <Stack.Screen name="MuscleGroupScreen" component={MuscleGroupScreen} options={{ title: 'Мышцы' }}/>
+                <Stack.Screen name="MuscleScreen" component={MuscleScreen} options={{ title: 'Мышца' }}/>
+                <Stack.Screen name="TestScreen" component={TestScreen} options={{ title: 'Тесты' }}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

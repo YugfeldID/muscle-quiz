@@ -25,7 +25,7 @@ export abstract class TestGenerator<T extends MusclePropertyValue> {
                     isRight: true
                 }
             ])
-        }
+        };
     }
 
     getWrongAnswers<T extends MusclePropertyValue>(

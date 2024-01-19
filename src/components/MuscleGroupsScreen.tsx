@@ -1,9 +1,10 @@
+import { Box, HStack, Pressable, ScrollView, Text } from '@gluestack-ui/themed';
 import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, SafeAreaView, StyleSheet } from 'react-native';
 import { MuscleGroup } from '../models/MuscleGroup';
 import { RootStackParamList } from './Navigation';
 
@@ -11,63 +12,60 @@ export type MuscleGroupsProps = NativeStackScreenProps<RootStackParamList, 'Musc
 
 export const MuscleGroupsScreen = (props: MuscleGroupsProps) => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-    const [dataSource, setDataSource] = useState<MuscleGroup[]>([]);
-
-    // useEffect(() => {
-    //     let items = Array.apply(null, Array(60)).map((v, i) => {
-    //         return {
-    //             id: i,
-    //             src: 'https://unsplash.it/400/400?image=' + (i + 1)
-    //         };
-    //     });
-    //     setDataSource(items);
-    // }, []);
-
-    useEffect(() => {
-        setDataSource(props.route.params.muscleGroups);
-    }, [props.route.params.muscleGroups]);
 
     function onMuscleGroupPress(muscleGroup: MuscleGroup) {
         navigation.navigate<'MuscleGroupScreen'>('MuscleGroupScreen', { muscleGroup });
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <FlatList
-                data={dataSource}
-                renderItem={({item}) => (
-                    <View
-                        style={{
-                            flex: 1,
-                            flexDirection: 'column',
-                            margin: 1
-                        }}>
-                        {/*<Image*/}
-                        {/*    style={styles.imageThumbnail}*/}
-                        {/*    source={{uri: item.src}}*/}
-                        {/*/>*/}
-                        <View style={styles.imageThumbnail}>
-                            <Text onPress={() => onMuscleGroupPress(item)}>{item.name}</Text>
-                        </View>
-                    </View>
-                )}
-                //Setting the number of column
-                numColumns={2}
-                keyExtractor={(item, index) => index}
-            />
+        <SafeAreaView style={styles.mainContainer}>
+            <ScrollView>
+                <HStack space="md" p="$8" style={styles.groupsContainer}>
+                    {props.route.params.muscleGroups.map((group) => (
+                        <Pressable
+                            key={group.name}
+                            onPress={() => onMuscleGroupPress(group)}
+                            $hover-bg="$primary400">
+
+                            <Box h="$40" borderRadius="$md" pb="$4" styles={styles.groupContainer} w="$24">
+                                {!group.image && (
+                                    <Box bg="$blue100" style={styles.groupImage} borderRadius="$md"/>
+                                )}
+                                {group.image && (
+                                    <ImageBackground source={group.image}
+                                                     resizeMode="cover"
+                                                     style={styles.groupImage}
+                                                     imageStyle={{ opacity: 0.3, borderRadius: 6 }}/>
+                                )}
+                                <Text bg="$cyan700" style={styles.groupName} borderRadius="$md">
+                                    {group.name}
+                                </Text>
+                            </Box>
+                        </Pressable>
+                    ))}
+                </HStack>
+            </ScrollView>
         </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
+    mainContainer: {
+        flex: 1
+    },
+    groupImage: {
+        flex: 4
+    },
+    groupName: {
         flex: 1,
-        justifyContent: 'center',
-        backgroundColor: 'white',
+        textAlign: 'center',
+        color: 'white'
     },
-    imageThumbnail: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 100,
+    groupsContainer: {
+        flexWrap: 'wrap',
+        justifyContent: 'space-around'
     },
+    groupContainer: {
+        width: 120
+    }
 });

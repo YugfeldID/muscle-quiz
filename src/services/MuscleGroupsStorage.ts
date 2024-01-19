@@ -11,31 +11,37 @@ import { MuscleParser } from './MuscleParser';
 class MuscleGroupsStorage {
     musclesGroups: MuscleGroup[] = [
         {
-            name: "Мышцы туловища: задние",
+            name: "Спина",
+            image: require('../data/images/back-muscles.png'),
             muscles: MuscleParser.parseMuscles(back.muscles)
         },
         {
-            name: "Мышцы туловища: передние",
+            name: "Живот",
+            image: require('../data/images/stomach-muscles.png'),
             muscles: MuscleParser.parseMuscles(stomach.muscles)
         },
         {
-            name: "Мышцы шеи",
+            name: "Шея",
+            image: require('../data/images/neck-muscles.png'),
             muscles: MuscleParser.parseMuscles(neck.muscles)
         },
         {
-            name: "Мышцы бедра",
+            name: "Бедро",
+            image: require('../data/images/hip-muscles.png'),
             muscles: MuscleParser.parseMuscles(hip.muscles)
         },
         {
-            name: "Мышцы голени",
+            name: "Голень",
+            image: require('../data/images/shin-muscles.png'),
             muscles: MuscleParser.parseMuscles(shin.muscles)
         },
         {
-            name: "Мышцы плечевого пояса",
+            name: "Плечевой пояс",
             muscles: MuscleParser.parseMuscles(shoulder_girdle.muscles)
         },
         {
-            name: "Мышцы плеча",
+            name: "Плечо",
+            image: require('../data/images/shoulder-muscles.png'),
             muscles: MuscleParser.parseMuscles(shoulder.muscles)
         }
     ];

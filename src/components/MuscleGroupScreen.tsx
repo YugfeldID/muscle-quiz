@@ -1,9 +1,22 @@
+import {
+    Box,
+    Button,
+    ButtonText,
+    Center,
+    Divider,
+    FlatList,
+    HStack,
+    Icon,
+    InfoIcon,
+    Pressable,
+    Text
+} from '@gluestack-ui/themed';
 import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 
-import { Button, FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { Muscle } from '../models/Muscle';
 import { testScenario } from '../services/TestScenario';
 import { RootStackParamList } from './Navigation';
@@ -27,39 +40,42 @@ export const MuscleGroupScreen = (props: MuscleGroupProps) => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Button title="Начать тест" onPress={onStartTestPress}/>
+        <SafeAreaView style={styles.mainContainer}>
             <FlatList
                 data={dataSource}
-                renderItem={({ item }) => (
-                    <View
-                        style={{
-                            flex: 1,
-                            flexDirection: 'column',
-                            margin: 1
-                        }}>
-                        <View style={styles.imageThumbnail}>
-                            <Text onPress={() => onPress(item)}>{item.getProperty(Muscle.rusName)}</Text>
-                        </View>
-                    </View>
+                renderItem={({ item, index }) => (
+                    <Pressable
+                        onPress={() => onPress(item)}
+                        $hover-bg="$primary400">
+
+                        <Box p="$8" pb="0">
+                            <HStack alignItems="baseline">
+                                <Icon as={InfoIcon} m="$2" w="$5" h="$5"/>
+                                <Box space="md" pb="$8">
+                                    <Text>{item.getProperty(Muscle.rusName)}</Text>
+                                </Box>
+                            </HStack>
+                            {index < dataSource.length - 1 && (
+                                <Divider my="$0.5"/>
+                            )}
+                        </Box>
+                    </Pressable>
                 )}
-                //Setting the number of column
-                numColumns={2}
+                numColumns={1}
                 keyExtractor={(item, index) => index}
             />
+            <Center m="$8">
+                <Button onPress={onStartTestPress}>
+                    <ButtonText>Начать тест</ButtonText>
+                </Button>
+            </Center>
         </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
+    mainContainer: {
         flex: 1,
-        justifyContent: 'center',
-        backgroundColor: 'white'
+        justifyContent: 'center'
     },
-    imageThumbnail: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 100
-    }
 });

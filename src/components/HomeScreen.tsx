@@ -1,7 +1,8 @@
+import { Box, Center, Pressable, Text, VStack } from '@gluestack-ui/themed';
 import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types';
 import { useNavigation } from '@react-navigation/native';
 import React, { useMemo } from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { ImageBackground, SafeAreaView, StyleSheet } from 'react-native';
 import { muscleGroupsStorage } from '../services/MuscleGroupsStorage';
 import { testScenario } from '../services/TestScenario';
 import { RootStackParamList } from './Navigation';
@@ -23,27 +24,64 @@ export const HomeScreen = () => {
     }
 
     return (
-        <View style={styles.imageThumbnail}>
-            <Button title={'Изучить мышцы'}
-                    onPress={onPressMuscles}
-            />
+        <SafeAreaView style={styles.mainContainer}>
+            <ImageBackground
+                source={require('../data/images/muscles.png')}
+                resizeMode="cover"
+                style={styles.image}
+                imageStyle={{ opacity: 0.3 }}>
 
-            <Button title={'Начать тест'}
-                    onPress={onPressTest}
-            />
-        </View>
+                <Center>
+                    <Box h="$60" justifyContent="center">
+                        <VStack space="md">
+                            <HomeScreenButton
+                                onPress={onPressMuscles}
+                                color="$cyan700"
+                                text="Изучить мышцы"
+                            />
+
+                            <HomeScreenButton
+                                onPress={onPressTest}
+                                color="$blue400"
+                                text="Начать тест"
+                            />
+                        </VStack>
+                    </Box>
+                </Center>
+            </ImageBackground>
+        </SafeAreaView>
     );
 };
 
+type HomeScreenButtonProps = {
+    onPress: () => void;
+    color: string;
+    text: string;
+}
+const HomeScreenButton = ({ onPress, color, text }: HomeScreenButtonProps) => {
+    return (
+        <Pressable
+            onPress={onPress}
+            $hover-bg="$primary400">
+            <Box w="$40" h="$16" bg={color} borderRadius="$md" style={styles.textContainer}>
+                <Text size="md" color="white">{text}</Text>
+            </Box>
+        </Pressable>
+    );
+}
+
 const styles = StyleSheet.create({
-    container: {
+    mainContainer: {
         flex: 1,
         justifyContent: 'center',
         backgroundColor: 'white'
     },
-    imageThumbnail: {
+    textContainer: {
         justifyContent: 'center',
-        alignItems: 'center',
-        height: 100
+        alignItems: 'center'
+    },
+    image: {
+        flex: 1,
+        justifyContent: 'center'
     }
 });

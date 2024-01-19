@@ -5,6 +5,7 @@ import { getRandomIndex } from '../utils/ArrayUtils';
 import { getAllCombinationsForArray } from '../utils/CombinationsUtils';
 import { WrongAnswersGenerationOptions, WrongAnswersGenerationStrategy } from './WrongAnswersGenerationStrategy';
 
+//todo Irina debug
 export class NotCompleteWrongAnswersGenerationStrategy implements WrongAnswersGenerationStrategy {
     getWrongAnswers<T extends MusclePropertyValue>(
         muscles: Muscle[],
