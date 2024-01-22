@@ -3,9 +3,9 @@ import { Answer } from '../../models/TestModel';
 import { TestSettings } from '../TestSettings';
 import { getRandomIndex } from '../utils/ArrayUtils';
 import { getAllCombinationsForArray } from '../utils/CombinationsUtils';
+import { formatPropertyValueText } from '../utils/MusclePropertyUtils';
 import { WrongAnswersGenerationOptions, WrongAnswersGenerationStrategy } from './WrongAnswersGenerationStrategy';
 
-//todo Irina debug
 export class NotCompleteWrongAnswersGenerationStrategy implements WrongAnswersGenerationStrategy {
     getWrongAnswers<T extends MusclePropertyValue>(
         muscles: Muscle[],
@@ -17,7 +17,12 @@ export class NotCompleteWrongAnswersGenerationStrategy implements WrongAnswersGe
         const result: Answer[] = [];
         const rightAnswers = muscles[rightAnswerIndex].getProperty(testProperty) as string[];
 
-        const combinations = [...getAllCombinationsForArray<string>(rightAnswers, Math.pow(2, rightAnswers.length))];
+        const combinations = [
+            ...getAllCombinationsForArray<string>(
+                rightAnswers,
+                Math.pow(2, rightAnswers.length)
+            )
+        ].filter((item) => item.length > 0 && item.length !== rightAnswers.length);
 
         for (let i = 0; i < options.answersCount; i++) {
             const wrongAnswerIndex = getRandomIndex(combinations, excludedIndexes);
@@ -27,7 +32,7 @@ export class NotCompleteWrongAnswersGenerationStrategy implements WrongAnswersGe
             }
 
             excludedIndexes.push(wrongAnswerIndex);
-            const text = combinations[wrongAnswerIndex].join(TestSettings.DEFAULT_ANSWERS_SEPARATOR);
+            const text = formatPropertyValueText(combinations[wrongAnswerIndex]);
 
             result.push({
                 text: text,
@@ -41,5 +46,4 @@ export class NotCompleteWrongAnswersGenerationStrategy implements WrongAnswersGe
         const property = muscle.getProperty(testProperty);
         return Array.isArray(property) && property.length > 1;
     }
-
 }

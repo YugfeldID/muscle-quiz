@@ -9,11 +9,11 @@ class NameTestGenerator extends TestGenerator<string> {
     ];
 
     getQuestion(muscle: Muscle): string {
-        return `Как называется мышца ${muscle.getProperty(Muscle.rusName)}?`;
+        return `Как называется `;
     }
 
     getTestMuscleProperty(): MuscleProperty<string> {
-        return Muscle.engName;
+        return MuscleProperty.engName;
     }
 }
 

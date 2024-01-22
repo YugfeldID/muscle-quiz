@@ -18,6 +18,7 @@ export abstract class TestGenerator<T extends MusclePropertyValue> {
 
         return {
             question: this.getQuestion(muscle),
+            muscle: muscle,
             answers: randomSort([
                 ...this.getWrongAnswers(muscles, rightAnswerIndex, this.getTestMuscleProperty()),
                 {
@@ -53,8 +54,12 @@ export abstract class TestGenerator<T extends MusclePropertyValue> {
                     testProperty,
                     { answersCount: wrongAnswersCount }
                 ).forEach(el => {
-                    if (result.every((existed) => existed.text !== el.text)) {
-                        result.push(el);
+                    let formattedText = formatPropertyValueText(el.text);
+                    if (result.every((existed) => existed.text !== formattedText)) {
+                        result.push({
+                            text: formattedText,
+                            isRight: el.isRight,
+                        });
                     }
                 });
             }

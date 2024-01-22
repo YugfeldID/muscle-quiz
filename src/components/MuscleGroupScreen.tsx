@@ -1,24 +1,13 @@
-import {
-    Box,
-    Button,
-    ButtonText,
-    Center,
-    Divider,
-    FlatList,
-    HStack,
-    Icon,
-    InfoIcon,
-    Pressable,
-    Text
-} from '@gluestack-ui/themed';
+import { Box, Button, ButtonText, Center, Divider, FlatList, HStack, Pressable, Text } from '@gluestack-ui/themed';
 import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 
 import { SafeAreaView, StyleSheet } from 'react-native';
-import { Muscle } from '../models/Muscle';
+import { Muscle, MuscleProperty } from '../models/Muscle';
 import { testScenario } from '../services/TestScenario';
+import { scaleOnPress } from '../services/utils/ScaleUtils';
 import { RootStackParamList } from './Navigation';
 
 export type MuscleGroupProps = NativeStackScreenProps<RootStackParamList, 'MuscleGroupScreen'>;
@@ -45,20 +34,26 @@ export const MuscleGroupScreen = (props: MuscleGroupProps) => {
                 data={dataSource}
                 renderItem={({ item, index }) => (
                     <Pressable
-                        onPress={() => onPress(item)}
-                        $hover-bg="$primary400">
+                        key={item.getProperty(MuscleProperty.rusName)}
+                        onPress={() => onPress(item)}>
+                        {({ pressed }) => {
+                            return (
 
-                        <Box p="$8" pb="0">
-                            <HStack alignItems="baseline">
-                                <Icon as={InfoIcon} m="$2" w="$5" h="$5"/>
-                                <Box space="md" pb="$8">
-                                    <Text>{item.getProperty(Muscle.rusName)}</Text>
+                                <Box pt="$8" pl="$8" pr="$8">
+                                    <HStack style={[
+                                        scaleOnPress(pressed),
+                                        styles.muscleRow
+                                    ]}>
+                                        <Box space="md" pb="$8">
+                                            <Text>{item.getProperty(MuscleProperty.rusName)}</Text>
+                                        </Box>
+                                    </HStack>
+                                    {index < dataSource.length - 1 && (
+                                        <Divider my="$0.5"/>
+                                    )}
                                 </Box>
-                            </HStack>
-                            {index < dataSource.length - 1 && (
-                                <Divider my="$0.5"/>
-                            )}
-                        </Box>
+                            );
+                        }}
                     </Pressable>
                 )}
                 numColumns={1}
@@ -76,6 +71,16 @@ export const MuscleGroupScreen = (props: MuscleGroupProps) => {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
+    muscleRow: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'baseline'
+    },
+    iconContainer: {
+        top: -15
+        // top: 6,
+    }
 });

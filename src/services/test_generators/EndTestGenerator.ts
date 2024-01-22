@@ -20,11 +20,11 @@ class EndTestGenerator extends TestGenerator<string []> {
     ];
 
     getQuestion(muscle: Muscle): string {
-        return `Назовите точки прикрепления мышцы ${muscle.getProperty(Muscle.rusName)}?`;
+        return `Куда крепится `;
     }
 
     getTestMuscleProperty(): MuscleProperty<string[]> {
-        return Muscle.end;
+        return MuscleProperty.end;
     }
 }
 

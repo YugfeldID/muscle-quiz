@@ -16,11 +16,11 @@ class EndTestGenerator extends TestGenerator<string []> {
     ];
 
     getQuestion(muscle: Muscle): string {
-        return `Назовите функции мышцы ${muscle.getProperty(Muscle.rusName)}?`;
+        return `Какие функции имеет `;
     }
 
     getTestMuscleProperty(): MuscleProperty<string[]> {
-        return Muscle.functions;
+        return MuscleProperty.functions;
     }
 }
 

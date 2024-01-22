@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 
 import { SafeAreaView, StyleSheet } from 'react-native';
-import { Muscle } from '../models/Muscle';
+import { Muscle, MuscleProperty } from '../models/Muscle';
 import { RootStackParamList } from './Navigation';
 
 export type MuscleScreenProps = NativeStackScreenProps<RootStackParamList, 'MuscleScreen'>;
@@ -15,26 +15,29 @@ export const MuscleScreen = (props: MuscleScreenProps) => {
                 <Box p="$8">
                     <Box style={styles.row} pb="$4">
                         <Text style={styles.column} bold="true">Название</Text>
-                        <Text style={styles.column}>{muscle.getProperty(Muscle.rusName)}</Text>
+                        <Text style={styles.column}>{muscle.getProperty(MuscleProperty.rusName)}</Text>
                     </Box>
                     <Box style={styles.row} pb="$4">
                         <Text style={styles.column} bold="true">Название (англ.)</Text>
-                        <Text style={styles.column}>{muscle.getProperty(Muscle.engName)}</Text>
+                        <Text style={styles.column}>{muscle.getProperty(MuscleProperty.engName)}</Text>
                     </Box>
                     <Box style={styles.row} pb="$4">
                         <Text style={styles.column} bold="true">Начало</Text>
-                        <Text style={styles.column}>{muscle.getProperty(Muscle.begin).map((value) =>
-                            <Text>&#x2022; {value};</Text>)}</Text>
+                        <Box style={styles.column}>{muscle.getProperty(MuscleProperty.begin).map((value) =>
+                            <Text key={value}>&#x2022; {value};</Text>)}
+                        </Box>
                     </Box>
                     <Box style={styles.row} pb="$4">
                         <Text style={styles.column} bold="true">Прикрепление</Text>
-                        <Text style={styles.column}>{muscle.getProperty(Muscle.end).map((value) =>
-                            <Text>&#x2022; {value};</Text>)}</Text>
+                        <Box style={styles.column}>{muscle.getProperty(MuscleProperty.end).map((value) =>
+                            <Text key={value}>&#x2022; {value};</Text>)}
+                        </Box>
                     </Box>
                     <Box style={styles.row} pb="$4">
                         <Text style={styles.column} bold="true">Функции</Text>
-                        <Text style={styles.column}>{muscle.getProperty(Muscle.functions).map((value) =>
-                            <Text>&#x2022; {value};</Text>)}</Text>
+                        <Box style={styles.column}>{muscle.getProperty(MuscleProperty.functions).map((value) =>
+                            <Text key={value}>&#x2022; {value};</Text>)}
+                        </Box>
                     </Box>
                 </Box>
             </ScrollView>
@@ -51,8 +54,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     column: {
+        display: 'flex',
         flex: 1,
         flexDirection: 'column',
-        display: 'flex'
     }
 });

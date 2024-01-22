@@ -4,8 +4,8 @@ import { MuscleDto } from '../models/MuscleDto';
 export class MuscleParser {
     static parseMuscle(muscleDto: MuscleDto): Muscle {
         const properties = new Map<MuscleProperty<MusclePropertyValue>, MusclePropertyValue>();
-        // @ts-ignore
-        Muscle.availableProperties.forEach((property) => properties.set(property, muscleDto[property.name]));
+        MuscleProperty.availableProperties.forEach((property) =>
+            properties.set(property, muscleDto[property.name]));
         return new Muscle(properties);
     }
 

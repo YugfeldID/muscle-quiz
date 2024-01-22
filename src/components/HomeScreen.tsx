@@ -1,18 +1,18 @@
 import { Box, Center, Pressable, Text, VStack } from '@gluestack-ui/themed';
 import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types';
 import { useNavigation } from '@react-navigation/native';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { ImageBackground, SafeAreaView, StyleSheet } from 'react-native';
 import { muscleGroupsStorage } from '../services/MuscleGroupsStorage';
 import { testScenario } from '../services/TestScenario';
+import { scaleOnPress } from '../services/utils/ScaleUtils';
 import { RootStackParamList } from './Navigation';
 
 export const HomeScreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-    const muscleGroups = useMemo(() => muscleGroupsStorage.musclesGroups, []);
 
     function onPressMuscles() {
-        navigation.navigate<'MuscleGroupsScreen'>('MuscleGroupsScreen', { muscleGroups });
+        navigation.navigate<'MuscleGroupsScreen'>('MuscleGroupsScreen');
     }
 
     function onPressTest() {
@@ -37,12 +37,14 @@ export const HomeScreen = () => {
                             <HomeScreenButton
                                 onPress={onPressMuscles}
                                 color="$cyan700"
+                                pressedColor="$cyan900"
                                 text="Изучить мышцы"
                             />
 
                             <HomeScreenButton
                                 onPress={onPressTest}
                                 color="$blue400"
+                                pressedColor="$blue600"
                                 text="Начать тест"
                             />
                         </VStack>
@@ -56,16 +58,26 @@ export const HomeScreen = () => {
 type HomeScreenButtonProps = {
     onPress: () => void;
     color: string;
+    pressedColor: string;
     text: string;
 }
-const HomeScreenButton = ({ onPress, color, text }: HomeScreenButtonProps) => {
+const HomeScreenButton = ({ onPress, color, pressedColor, text }: HomeScreenButtonProps) => {
     return (
         <Pressable
-            onPress={onPress}
-            $hover-bg="$primary400">
-            <Box w="$40" h="$16" bg={color} borderRadius="$md" style={styles.textContainer}>
-                <Text size="md" color="white">{text}</Text>
-            </Box>
+            onPress={onPress}>
+            {({ pressed }) => {
+                return (
+                    <Box w="$40" h="$16"
+                         bg={pressed ? pressedColor : color}
+                         borderRadius="$md"
+                         style={[
+                             scaleOnPress(pressed),
+                             styles.textContainer
+                         ]}>
+                        <Text size="md" color="white">{text}</Text>
+                    </Box>
+                );
+            }}
         </Pressable>
     );
 }

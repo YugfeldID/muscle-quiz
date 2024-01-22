@@ -11,9 +11,7 @@ import { TestScreen } from './TestScreen';
 
 export type RootStackParamList = {
     HomeScreen: undefined,
-    MuscleGroupsScreen: {
-        muscleGroups: MuscleGroup[],
-    },
+    MuscleGroupsScreen: undefined,
     MuscleGroupScreen: {
         muscleGroup: MuscleGroup,
     },

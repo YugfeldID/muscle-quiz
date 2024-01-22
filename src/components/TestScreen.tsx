@@ -1,8 +1,9 @@
-import { Box, Button, ButtonGroup, ButtonText, Center, ScrollView, Text, VStack } from '@gluestack-ui/themed';
+import { Box, Button, ButtonGroup, ButtonText, Center, HStack, ScrollView, Text, VStack } from '@gluestack-ui/themed';
 import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types';
 import { StackActions, useNavigation } from '@react-navigation/native';
 import React, { useMemo, useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
+import { Muscle, MuscleProperty } from '../models/Muscle';
 import { Answer, TestModel } from '../models/TestModel';
 import { testScenario } from '../services/TestScenario';
 import { RootStackParamList } from './Navigation';
@@ -13,6 +14,8 @@ export const TestScreen = () => {
 
     const firstTest: TestModel | undefined = useMemo(() => testScenario.getTest(), []);
     const [test, setTest] = useState<TestModel | undefined>(firstTest);
+
+    const isAnswerCommitted = isAnswerCorrect !== undefined;
 
     function onAnswerChoose(answer: Answer) {
         if (isAnswerCorrect !== undefined) {
@@ -55,41 +58,53 @@ export const TestScreen = () => {
                             style={styles.testContainer}
                             p="$8">
 
-                            <Text pb="$6" bold="true" size="lg">
+                            <Text pb="$6" size="lg">
                                 {test.question}
+                                <Text bold="true" size="lg">
+                                    {test.muscle.getProperty<string>(MuscleProperty.rusName).toLowerCase()}
+                                </Text>
+                                ?
                             </Text>
                             {test.answers.map((t) => (
-                                <Box
+                                <HStack
+                                    key={t.text}
                                     p="$2"
                                     borderRadius="$md"
                                     borderWidth={getBorderColor(t) ? 1 : undefined}
-                                    borderColor={getBorderColor(t)}><Text
-                                    onPress={() => onAnswerChoose(t)}
-                                    key={t.text}
-                                    isDisabled={isAnswerCorrect !==
-                                                undefined}>&#x2022; {t.text}</Text></Box>
+                                    borderColor={getBorderColor(t)}>
+                                    <Text>&#x2022;</Text>
+                                    <Text
+                                        style={{flex: 1, paddingLeft: 5}}
+                                        onPress={() => onAnswerChoose(t)}
+                                        key={t.text}
+                                        isDisabled={isAnswerCommitted}>
+                                        {t.text}
+                                    </Text>
+                                </HStack>
                             ))}
-                            <Box>
-                                {isAnswerCorrect && (
-                                    <Text color="$success500" pt="$6">
-                                        Верный ответ!
-                                    </Text>
-                                )}
-                                {isAnswerCorrect === false && (
-                                    <Text color="$error500" pt="$6">
-                                        Правильный ответ: {test.answers.find((a) => a.isRight)?.text}
-                                    </Text>
-                                )}
-                            </Box>
+                            {isAnswerCommitted && (
+                                <Box>
+                                    {isAnswerCorrect && (
+                                        <Text color="$success500" pt="$6">
+                                            Верный ответ!
+                                        </Text>
+                                    )}
+                                    {!isAnswerCorrect && (
+                                        <Text color="$error500" pt="$6">
+                                            Правильный ответ: {test.answers.find((a) => a.isRight)?.text}
+                                        </Text>
+                                    )}
+                                </Box>
+                            )}
                         </VStack>
                     </ScrollView>
                     <Center m="$8">
                         <ButtonGroup space="md" pt="$8">
-                            <Button isDisabled={!chosenAnswer || isAnswerCorrect !== undefined}
+                            <Button isDisabled={!chosenAnswer || isAnswerCommitted}
                                     onPress={onAnswerSubmit}>
                                 <ButtonText>Подтвердить</ButtonText>
                             </Button>
-                            <Button isDisabled={isAnswerCorrect === undefined} onPress={onPressNext}>
+                            <Button isDisabled={!isAnswerCommitted} onPress={onPressNext}>
                                 <ButtonText>Дальше</ButtonText>
                             </Button>
                         </ButtonGroup>

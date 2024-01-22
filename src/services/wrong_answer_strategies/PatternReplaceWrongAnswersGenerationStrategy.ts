@@ -59,7 +59,7 @@ export class PatternReplaceWrongAnswersGenerationStrategy implements WrongAnswer
     private checkIfContainsPattern(property: String): boolean {
         return this.patterns.some((pattern) => {
             const mergedPatterns = pattern.join('\s*|');
-            return property.match(mergedPatterns);
+            return property.toLowerCase().match(mergedPatterns);
         });
     };
 

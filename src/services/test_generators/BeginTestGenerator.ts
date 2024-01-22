@@ -20,11 +20,11 @@ class BeginTestGenerator extends TestGenerator<string []> {
     ];
 
     getQuestion(muscle: Muscle): string {
-        return `Где начинается мышца ${muscle.getProperty(Muscle.rusName)}?`;
+        return `Где начинается `;
     }
 
     getTestMuscleProperty(): MuscleProperty<string []> {
-        return Muscle.begin;
+        return MuscleProperty.begin;
     }
 }
 

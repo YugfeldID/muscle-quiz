@@ -3,9 +3,8 @@ import { TestSettings } from '../TestSettings';
 
 export function formatPropertyValueText(propertyValue: MusclePropertyValue): string {
     if (typeof propertyValue === 'string') {
-        return  propertyValue as string;
+        return  propertyValue.toLowerCase();
     } else if (Array.isArray(propertyValue)) {
-        return (propertyValue as []
-        ).join(TestSettings.DEFAULT_ANSWERS_SEPARATOR)
+        return propertyValue.map(el => el.toLowerCase()).join(`${TestSettings.DEFAULT_ANSWERS_SEPARATOR}\n`);
     }
 }
