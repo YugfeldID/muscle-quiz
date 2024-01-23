@@ -1,6 +1,5 @@
 import { Muscle, MuscleProperty, MusclePropertyValue } from '../../models/Muscle';
 import { Answer } from '../../models/TestModel';
-import { TestSettings } from '../TestSettings';
 import { getRandomIndex } from '../utils/ArrayUtils';
 import { getAllCombinationsForArray } from '../utils/CombinationsUtils';
 import { formatPropertyValueText } from '../utils/MusclePropertyUtils';

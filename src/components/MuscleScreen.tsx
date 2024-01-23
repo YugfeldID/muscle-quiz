@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 
 import { SafeAreaView, StyleSheet } from 'react-native';
-import { Muscle, MuscleProperty } from '../models/Muscle';
+import { MuscleProperty } from '../models/Muscle';
 import { RootStackParamList } from './Navigation';
 
 export type MuscleScreenProps = NativeStackScreenProps<RootStackParamList, 'MuscleScreen'>;

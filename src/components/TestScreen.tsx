@@ -3,7 +3,7 @@ import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types'
 import { StackActions, useNavigation } from '@react-navigation/native';
 import React, { useMemo, useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import { Muscle, MuscleProperty } from '../models/Muscle';
+import { MuscleProperty } from '../models/Muscle';
 import { Answer, TestModel } from '../models/TestModel';
 import { testScenario } from '../services/TestScenario';
 import { RootStackParamList } from './Navigation';

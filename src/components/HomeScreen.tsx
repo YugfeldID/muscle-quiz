@@ -1,15 +1,17 @@
-import { Box, Center, Pressable, Text, VStack } from '@gluestack-ui/themed';
+import { Box, Center, Fab, FabIcon, FavouriteIcon, Pressable, Text, VStack } from '@gluestack-ui/themed';
 import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import { ImageBackground, SafeAreaView, StyleSheet } from 'react-native';
 import { muscleGroupsStorage } from '../services/MuscleGroupsStorage';
 import { testScenario } from '../services/TestScenario';
 import { scaleOnPress } from '../services/utils/ScaleUtils';
+import { DonateModal } from './DonateModal';
 import { RootStackParamList } from './Navigation';
 
 export const HomeScreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const [isModalOpened, setIsModalOpened] = useState(false);
 
     function onPressMuscles() {
         navigation.navigate<'MuscleGroupsScreen'>('MuscleGroupsScreen');
@@ -51,6 +53,18 @@ export const HomeScreen = () => {
                     </Box>
                 </Center>
             </ImageBackground>
+            <Fab
+                size="lg"
+                bg="$red400"
+                placement="bottom right"
+                style={styles.donateButton}
+                onPress={() => setIsModalOpened(true)}>
+                <FabIcon as={FavouriteIcon}/>
+            </Fab>
+            <DonateModal
+                isOpened={isModalOpened}
+                setIsOpened={setIsModalOpened}
+            />
         </SafeAreaView>
     );
 };
@@ -95,5 +109,8 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         justifyContent: 'center'
+    },
+    donateButton: {
+        opacity: 1
     }
 });

@@ -33,7 +33,6 @@ export class DigitsReplaceWrongAnswersGenerationStrategy implements WrongAnswers
         const replaceStrategy = this.replaceStrategies.find((strategy) => strategy.isApplicable(text));
 
         if (!replaceStrategy) {
-            //    todo error
             return result;
         }
 

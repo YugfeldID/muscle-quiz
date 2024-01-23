@@ -1,7 +1,6 @@
-import { Box, HStack, ScrollView, Text, Pressable } from '@gluestack-ui/themed';
+import { Box, HStack, Pressable, ScrollView, Text } from '@gluestack-ui/themed';
 import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useMemo } from 'react';
 
 import { ImageBackground, SafeAreaView, StyleSheet } from 'react-native';
@@ -10,9 +9,7 @@ import { muscleGroupsStorage } from '../services/MuscleGroupsStorage';
 import { scaleOnPress } from '../services/utils/ScaleUtils';
 import { RootStackParamList } from './Navigation';
 
-export type MuscleGroupsProps = NativeStackScreenProps<RootStackParamList, 'MuscleGroupsScreen'>;
-
-export const MuscleGroupsScreen = (props: MuscleGroupsProps) => {
+export const MuscleGroupsScreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const muscleGroups = useMemo(() => muscleGroupsStorage.musclesGroups, []);
 

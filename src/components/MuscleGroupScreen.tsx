@@ -1,4 +1,15 @@
-import { Box, Button, ButtonText, Center, Divider, FlatList, HStack, Pressable, Text } from '@gluestack-ui/themed';
+import {
+    Box,
+    Button,
+    ButtonText,
+    Center,
+    Divider,
+    FlatList,
+    HStack, Icon,
+    InfoIcon,
+    Pressable,
+    Text
+} from '@gluestack-ui/themed';
 import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -38,12 +49,12 @@ export const MuscleGroupScreen = (props: MuscleGroupProps) => {
                         onPress={() => onPress(item)}>
                         {({ pressed }) => {
                             return (
-
                                 <Box pt="$8" pl="$8" pr="$8">
                                     <HStack style={[
                                         scaleOnPress(pressed),
                                         styles.muscleRow
                                     ]}>
+                                        <Icon as={InfoIcon} m="$2" w="$5" h="$5"/>
                                         <Box space="md" pb="$8">
                                             <Text>{item.getProperty(MuscleProperty.rusName)}</Text>
                                         </Box>
