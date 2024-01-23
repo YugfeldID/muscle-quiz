@@ -5,7 +5,8 @@ import {
     Center,
     Divider,
     FlatList,
-    HStack, Icon,
+    HStack,
+    Icon,
     InfoIcon,
     Pressable,
     Text
@@ -13,10 +14,11 @@ import {
 import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { Muscle, MuscleProperty } from '../models/Muscle';
+import { muscleGroupsStorage } from '../services/MuscleGroupsStorage';
 import { testScenario } from '../services/TestScenario';
 import { scaleOnPress } from '../services/utils/ScaleUtils';
 import { RootStackParamList } from './Navigation';
@@ -25,17 +27,25 @@ export type MuscleGroupProps = NativeStackScreenProps<RootStackParamList, 'Muscl
 export const MuscleGroupScreen = (props: MuscleGroupProps) => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const [dataSource, setDataSource] = useState<Muscle[]>([]);
+    const { muscleGroupName } = props.route.params;
+
+    const muscleGroup = useMemo(() => muscleGroupsStorage.musclesGroups.get(muscleGroupName), []);
 
     useEffect(() => {
-        setDataSource(props.route.params.muscleGroup.muscles);
-    }, [props.route.params.muscleGroup]);
+        setDataSource([
+            ...muscleGroupsStorage.musclesGroups.get(muscleGroupName)?.muscles.values()
+        ]);
+    }, [muscleGroupName]);
 
     function onPress(muscle: Muscle) {
-        navigation.navigate<'MuscleScreen'>('MuscleScreen', { muscle });
+        navigation.navigate<'MuscleScreen'>(
+            'MuscleScreen',
+            { muscleName: muscle.getProperty(MuscleProperty.rusName), muscleGroupName }
+        );
     }
 
     function onStartTestPress() {
-        testScenario.start(props.route.params.muscleGroup.muscles);
+        testScenario.start([...muscleGroup?.muscles.values()]);
         navigation.navigate<'TestScreen'>('TestScreen');
     }
 
@@ -54,7 +64,7 @@ export const MuscleGroupScreen = (props: MuscleGroupProps) => {
                                         scaleOnPress(pressed),
                                         styles.muscleRow
                                     ]}>
-                                        <Icon as={InfoIcon} m="$2" w="$5" h="$5"/>
+                                        <Icon as={InfoIcon} mr="$2" w="$5" h="$5" style={styles.iconContainer}/>
                                         <Box space="md" pb="$8">
                                             <Text>{item.getProperty(MuscleProperty.rusName)}</Text>
                                         </Box>
@@ -82,16 +92,15 @@ export const MuscleGroupScreen = (props: MuscleGroupProps) => {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     muscleRow: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'baseline'
+        alignItems: 'flex-start'
     },
     iconContainer: {
-        top: -15
-        // top: 6,
+        marginTop: 1
     }
 });

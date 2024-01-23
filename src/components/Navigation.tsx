@@ -13,10 +13,11 @@ export type RootStackParamList = {
     HomeScreen: undefined,
     MuscleGroupsScreen: undefined,
     MuscleGroupScreen: {
-        muscleGroup: MuscleGroup,
+        muscleGroupName: string,
     },
     MuscleScreen: {
-        muscle: Muscle,
+        muscleName: string,
+        muscleGroupName: string,
     },
     TestScreen: undefined,
 };

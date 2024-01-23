@@ -35,7 +35,7 @@ export class TestScenario {
         const testCount = this.allAnswersCount;
         while (this.tests.length < testCount) {
             const test = getRandomElement(this.testGenerators)?.generateTest(muscles);
-            if (test && this.tests.every((t) => t.question !== test.question)) {
+            if (test && this.tests.every((t) => !t.isEqual(test))) {
                 this.tests.push(test);
             }
         }

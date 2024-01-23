@@ -10,13 +10,14 @@ export abstract class TestGenerator<T extends MusclePropertyValue> {
     abstract wrongAnswersGenerators: WrongAnswersGenerationStrategy[];
 
     abstract getQuestion(muscle: Muscle): string;
+
     abstract getTestMuscleProperty(): MuscleProperty<T>;
 
     generateTest(muscles: Muscle[]): TestModel {
         const rightAnswerIndex = getRandomIndex(muscles)!
         const muscle = muscles[rightAnswerIndex];
 
-        return {
+        return new TestModel({
             question: this.getQuestion(muscle),
             muscle: muscle,
             answers: randomSort([
@@ -26,7 +27,7 @@ export abstract class TestGenerator<T extends MusclePropertyValue> {
                     isRight: true
                 }
             ])
-        };
+        });
     }
 
     getWrongAnswers<T extends MusclePropertyValue>(
@@ -58,7 +59,7 @@ export abstract class TestGenerator<T extends MusclePropertyValue> {
                     if (result.every((existed) => existed.text !== formattedText)) {
                         result.push({
                             text: formattedText,
-                            isRight: el.isRight,
+                            isRight: el.isRight
                         });
                     }
                 });

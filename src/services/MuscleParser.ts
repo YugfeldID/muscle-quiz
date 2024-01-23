@@ -9,8 +9,9 @@ export class MuscleParser {
         return new Muscle(properties);
     }
 
-    static parseMuscles(muscle: MuscleDto[]): Muscle[] {
-        return muscle.map((muscle) => this.parseMuscle(muscle));
+    static parseMuscles(muscle: MuscleDto[]): Map<string, Muscle> {
+        let entries = muscle.map((muscle) => [muscle.rusName, this.parseMuscle(muscle)]);
+        return new Map<string, Muscle>(entries);
     }
 }
 

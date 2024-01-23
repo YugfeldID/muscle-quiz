@@ -18,8 +18,9 @@ export const HomeScreen = () => {
     }
 
     function onPressTest() {
-        let muscles = muscleGroupsStorage.musclesGroups.reduce((accumulator, muscleGroup) => {
-            return accumulator.concat(muscleGroup.muscles);
+        let muscles = [...muscleGroupsStorage.musclesGroups.values()]
+        .reduce((accumulator, muscleGroup) => {
+            return accumulator.concat(...muscleGroup.muscles.values());
         }, []);
         testScenario.start(muscles)
         navigation.navigate<'TestScreen'>('TestScreen');

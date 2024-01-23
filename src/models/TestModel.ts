@@ -5,8 +5,23 @@ export type Answer = {
     isRight: boolean,
 }
 
-export type TestModel = {
-    question: String,
-    muscle: Muscle,
-    answers: Answer[],
+type TestModelParams = {
+    question: String;
+    muscle: Muscle;
+    answers: Answer[];
+}
+export class TestModel {
+    question: String;
+    muscle: Muscle;
+    answers: Answer[];
+
+    constructor({ question, muscle, answers}: TestModelParams) {
+        this.question = question;
+        this.muscle = muscle;
+        this.answers = answers;
+    }
+
+    isEqual(model: TestModel) {
+        return this.muscle.isEqual(model.muscle) && this.question === model.question;
+    }
 }

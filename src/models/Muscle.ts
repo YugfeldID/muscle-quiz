@@ -34,4 +34,8 @@ export class Muscle {
     public getProperty<T extends MusclePropertyValue>(property: MuscleProperty<T>): T {
         return this.properties.get(property) as T;
     }
+
+    isEqual(muscle: Muscle) {
+        return muscle.getProperty(MuscleProperty.rusName) === this.getProperty(MuscleProperty.rusName);
+    }
 }

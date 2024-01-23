@@ -11,10 +11,10 @@ import { RootStackParamList } from './Navigation';
 
 export const MuscleGroupsScreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-    const muscleGroups = useMemo(() => muscleGroupsStorage.musclesGroups, []);
+    const muscleGroups = useMemo(() => [...muscleGroupsStorage.musclesGroups.values()], []);
 
     function onMuscleGroupPress(muscleGroup: MuscleGroup) {
-        navigation.navigate<'MuscleGroupScreen'>('MuscleGroupScreen', { muscleGroup });
+        navigation.navigate<'MuscleGroupScreen'>('MuscleGroupScreen', { muscleGroupName: muscleGroup.name });
     }
 
     return (

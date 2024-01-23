@@ -1,46 +1,54 @@
 import { Box, ScrollView, Text } from '@gluestack-ui/themed';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { MuscleProperty } from '../models/Muscle';
+import { muscleGroupsStorage } from '../services/MuscleGroupsStorage';
 import { RootStackParamList } from './Navigation';
 
 export type MuscleScreenProps = NativeStackScreenProps<RootStackParamList, 'MuscleScreen'>;
 export const MuscleScreen = (props: MuscleScreenProps) => {
-    const { muscle } = props.route.params;
+    const { muscleName, muscleGroupName } = props.route.params;
+
+    const muscle = useMemo(
+        () => muscleGroupsStorage.musclesGroups.get(muscleGroupName)?.muscles.get(muscleName),
+        [muscleName, muscleGroupName]
+    );
     return (
         <SafeAreaView style={styles.mainContainer}>
-            <ScrollView>
-                <Box p="$8">
-                    <Box style={styles.row} pb="$4">
-                        <Text style={styles.column} bold="true">Название</Text>
-                        <Text style={styles.column}>{muscle.getProperty(MuscleProperty.rusName)}</Text>
-                    </Box>
-                    <Box style={styles.row} pb="$4">
-                        <Text style={styles.column} bold="true">Название (англ.)</Text>
-                        <Text style={styles.column}>{muscle.getProperty(MuscleProperty.engName)}</Text>
-                    </Box>
-                    <Box style={styles.row} pb="$4">
-                        <Text style={styles.column} bold="true">Начало</Text>
-                        <Box style={styles.column}>{muscle.getProperty(MuscleProperty.begin).map((value) =>
-                            <Text key={value}>&#x2022; {value};</Text>)}
+            {muscle && (
+                <ScrollView>
+                    <Box p="$8">
+                        <Box style={styles.row} pb="$4">
+                            <Text style={styles.column} bold="true">Название</Text>
+                            <Text style={styles.column}>{muscle.getProperty(MuscleProperty.rusName)}</Text>
+                        </Box>
+                        <Box style={styles.row} pb="$4">
+                            <Text style={styles.column} bold="true">Название (англ.)</Text>
+                            <Text style={styles.column}>{muscle.getProperty(MuscleProperty.engName)}</Text>
+                        </Box>
+                        <Box style={styles.row} pb="$4">
+                            <Text style={styles.column} bold="true">Начало</Text>
+                            <Box style={styles.column}>{muscle.getProperty(MuscleProperty.begin).map((value) =>
+                                <Text key={value}>&#x2022; {value};</Text>)}
+                            </Box>
+                        </Box>
+                        <Box style={styles.row} pb="$4">
+                            <Text style={styles.column} bold="true">Прикрепление</Text>
+                            <Box style={styles.column}>{muscle.getProperty(MuscleProperty.end).map((value) =>
+                                <Text key={value}>&#x2022; {value};</Text>)}
+                            </Box>
+                        </Box>
+                        <Box style={styles.row} pb="$4">
+                            <Text style={styles.column} bold="true">Функции</Text>
+                            <Box style={styles.column}>{muscle.getProperty(MuscleProperty.functions).map((value) =>
+                                <Text key={value}>&#x2022; {value};</Text>)}
+                            </Box>
                         </Box>
                     </Box>
-                    <Box style={styles.row} pb="$4">
-                        <Text style={styles.column} bold="true">Прикрепление</Text>
-                        <Box style={styles.column}>{muscle.getProperty(MuscleProperty.end).map((value) =>
-                            <Text key={value}>&#x2022; {value};</Text>)}
-                        </Box>
-                    </Box>
-                    <Box style={styles.row} pb="$4">
-                        <Text style={styles.column} bold="true">Функции</Text>
-                        <Box style={styles.column}>{muscle.getProperty(MuscleProperty.functions).map((value) =>
-                            <Text key={value}>&#x2022; {value};</Text>)}
-                        </Box>
-                    </Box>
-                </Box>
-            </ScrollView>
+                </ScrollView>
+            )}
         </SafeAreaView>
     );
 };
@@ -56,6 +64,6 @@ const styles = StyleSheet.create({
     column: {
         display: 'flex',
         flex: 1,
-        flexDirection: 'column',
+        flexDirection: 'column'
     }
 });
