@@ -54,6 +54,7 @@ class MuscleGroupsStorage {
             'Плечевой пояс',
             {
                 name: 'Плечевой пояс',
+                image: require('../data/images/shoulder_girdle.png'),
                 muscles: MuscleParser.parseMuscles(shoulder_girdle.muscles)
             }
         ],

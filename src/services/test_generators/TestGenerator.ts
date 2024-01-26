@@ -39,6 +39,7 @@ export abstract class TestGenerator<T extends MusclePropertyValue> {
         let attemptsCount = this.wrongAnswersGenerators.length;
         const wrongAnswersCount = TestSettings.DEFAULT_ANSWERS_COUNT - 1;
         const result: Answer[] = [];
+        const rightAnswers = formatPropertyValueText(muscles[rightAnswerIndex].getProperty(testProperty));
 
         while (attemptsCount > 0 && result.length < wrongAnswersCount) {
             const generatorIndex = getRandomIndex(this.wrongAnswersGenerators, excludedIndexes);
@@ -56,7 +57,9 @@ export abstract class TestGenerator<T extends MusclePropertyValue> {
                     { answersCount: wrongAnswersCount }
                 ).forEach(el => {
                     let formattedText = formatPropertyValueText(el.text);
-                    if (result.every((existed) => existed.text !== formattedText)) {
+                    if (formattedText !== rightAnswers &&
+                        result.every((existed) => existed.text !== formattedText)
+                    ) {
                         result.push({
                             text: formattedText,
                             isRight: el.isRight
