@@ -30,7 +30,7 @@ export const DonateModal = ({ isOpened, setIsOpened }: DonateModalProps) => {
                 </ModalHeader>
                 <ModalBody mt="$4">
                     <Text>
-                        Если вам понравилось приложение и вы хотите поддержать автора, можете сделать это, отправив
+                        Если вам понравилось приложение и вы хотите поддержать авторов, можете сделать это, отправив
                         донат.
                     </Text>
                     <Link href="https://donatty.com/isfield" mt="$4">

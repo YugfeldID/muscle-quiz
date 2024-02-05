@@ -1,10 +1,11 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Muscle, MuscleProperty, MusclePropertyValue } from '../../models/Muscle';
 import { Answer, TestModel } from '../../models/TestModel';
 import { TestSettings } from '../TestSettings';
 import { getRandomIndex, randomSort } from '../utils/ArrayUtils';
 import { formatPropertyValueText } from '../utils/MusclePropertyUtils';
 import { WrongAnswersGenerationStrategy } from '../wrong_answer_strategies/WrongAnswersGenerationStrategy';
-import { v4 as uuidv4 } from 'uuid';
+import 'react-native-get-random-values';
 
 export abstract class TestGenerator<T extends MusclePropertyValue> {
 
