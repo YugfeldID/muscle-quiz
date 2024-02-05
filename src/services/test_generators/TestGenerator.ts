@@ -4,6 +4,7 @@ import { TestSettings } from '../TestSettings';
 import { getRandomIndex, randomSort } from '../utils/ArrayUtils';
 import { formatPropertyValueText } from '../utils/MusclePropertyUtils';
 import { WrongAnswersGenerationStrategy } from '../wrong_answer_strategies/WrongAnswersGenerationStrategy';
+import { v4 as uuidv4 } from 'uuid';
 
 export abstract class TestGenerator<T extends MusclePropertyValue> {
 
@@ -23,6 +24,7 @@ export abstract class TestGenerator<T extends MusclePropertyValue> {
             answers: randomSort([
                 ...this.getWrongAnswers(muscles, rightAnswerIndex, this.getTestMuscleProperty()),
                 {
+                    id: uuidv4(),
                     text: formatPropertyValueText(muscle.getProperty(this.getTestMuscleProperty())),
                     isRight: true
                 }
@@ -61,6 +63,7 @@ export abstract class TestGenerator<T extends MusclePropertyValue> {
                         result.every((existed) => existed.text !== formattedText)
                     ) {
                         result.push({
+                            id: uuidv4(),
                             text: formattedText,
                             isRight: el.isRight
                         });

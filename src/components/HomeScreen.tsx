@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     donateButton: {
-        opacity: 1
+        opacity: 1,
+        margin: 10,
     }
 });

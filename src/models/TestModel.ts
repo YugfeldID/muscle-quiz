@@ -1,6 +1,7 @@
 import { Muscle } from './Muscle';
 
 export type Answer = {
+    id: string,
     text: string,
     isRight: boolean,
 }

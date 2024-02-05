@@ -3,11 +3,11 @@ import {
     Button,
     ButtonText,
     Center,
+    ChevronRightIcon,
     Divider,
     FlatList,
     HStack,
     Icon,
-    InfoIcon,
     Pressable,
     Text
 } from '@gluestack-ui/themed';
@@ -64,10 +64,10 @@ export const MuscleGroupScreen = (props: MuscleGroupProps) => {
                                         scaleOnPress(pressed),
                                         styles.muscleRow
                                     ]}>
-                                        <Icon as={InfoIcon} mr="$2" w="$5" h="$5" style={styles.iconContainer}/>
                                         <Box space="md" pb="$8">
                                             <Text>{item.getProperty(MuscleProperty.rusName)}</Text>
                                         </Box>
+                                        <Icon as={ChevronRightIcon} mr="$2" w="$5" h="$5" style={styles.iconContainer}/>
                                     </HStack>
                                     {index < dataSource.length - 1 && (
                                         <Divider my="$0.5"/>
@@ -81,7 +81,7 @@ export const MuscleGroupScreen = (props: MuscleGroupProps) => {
                 keyExtractor={(item, index) => index}
             />
             <Center m="$8">
-                <Button onPress={onStartTestPress}>
+                <Button size="lg" onPress={onStartTestPress}>
                     <ButtonText>Начать тест</ButtonText>
                 </Button>
             </Center>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     muscleRow: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'flex-start'
     },
     iconContainer: {

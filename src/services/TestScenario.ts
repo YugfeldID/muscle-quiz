@@ -18,7 +18,7 @@ export class TestScenario {
         beginTestGenerator,
         endTestGenerator,
         functionsTestGenerator,
-        nameTestGenerator,
+        nameTestGenerator
     ];
 
     private tests: TestModel[] = [];
@@ -47,6 +47,14 @@ export class TestScenario {
 
     public getTest(): TestModel | undefined {
         return this.tests.pop();
+    }
+
+    public getLeftTestsCount(): number {
+        return this.tests.length;
+    }
+
+    public getTotalTestsCount(): number {
+        return this.allAnswersCount;
     }
 
     public commitAnswer(answer: Answer): boolean {
