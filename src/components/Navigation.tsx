@@ -28,7 +28,7 @@ export function AppNavigation() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ title: 'MuscleQuiz' }}/>
+                <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ title: 'Muscle Quiz' }}/>
                 <Stack.Screen name="MuscleGroupsScreen" component={MuscleGroupsScreen} options={{ title: 'Группы мышц' }}/>
                 <Stack.Screen name="MuscleGroupScreen" component={MuscleGroupScreen} options={{ title: 'Мышцы' }}/>
                 <Stack.Screen name="MuscleScreen" component={MuscleScreen} options={{ title: 'Мышца' }}/>
