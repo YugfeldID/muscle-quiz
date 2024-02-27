@@ -24,14 +24,16 @@ export const MuscleGroupsScreen = () => {
                     {muscleGroups.map((group) => (
                         <Pressable
                             key={group.name}
-                            onPress={() => onMuscleGroupPress(group)}>
-                            {({ pressed }) => {
+                            onPress={() => {
+                                onMuscleGroupPress(group);
+                            }}>
+                            {({ pressed }: { pressed?: boolean | undefined }) => {
                                 return (
                                     <Box
                                         borderRadius="$md"
                                         pb="$4"
                                         style={[
-                                            scaleOnPress(pressed),
+                                            scaleOnPress(pressed ?? false),
                                             styles.groupContainer
                                         ]}>
                                         {!group.image && (

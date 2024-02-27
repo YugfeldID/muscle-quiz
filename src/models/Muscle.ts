@@ -1,5 +1,6 @@
 export type MusclePropertyValue = string | string [] | undefined;
 
+// eslint-disable-next-line
 export class MuscleProperty<T extends MusclePropertyValue> {
     static rusName = new MuscleProperty<string>('rusName');
     static engName = new MuscleProperty<string>('engName');

@@ -54,7 +54,7 @@ export const TestScreen = () => {
 
     function updateTestsCount() {
         const totalTestsCont = testScenario.getTotalTestsCount();
-        const testCountInfo: string = `${totalTestsCont - testScenario.getLeftTestsCount()}/${totalTestsCont}`;
+        const testCountInfo = `${totalTestsCont - testScenario.getLeftTestsCount()}/${totalTestsCont}`;
         navigation.setOptions({ headerRight: () => <Text pr="$8" size="lg">{testCountInfo}</Text> })
     }
 
@@ -76,7 +76,7 @@ export const TestScreen = () => {
 
                             <Text pb="$6" size="lg">
                                 {test.question}
-                                <Text bold="true" size="lg">
+                                <Text bold size="lg">
                                     {test.muscle.getProperty<string>(MuscleProperty.rusName).toLowerCase()}
                                 </Text>
                                 ?
@@ -92,7 +92,7 @@ export const TestScreen = () => {
                                         key={t.id}>
 
                                         <RadioIndicator mr="$2">
-                                            <RadioIcon as={CircleIcon} strokeWidth={1}/>
+                                            <RadioIcon as={CircleIcon}/>
                                         </RadioIndicator>
                                         <RadioLabel>{t.text}</RadioLabel>
                                     </Radio>

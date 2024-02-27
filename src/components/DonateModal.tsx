@@ -11,7 +11,7 @@ import {
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
-export type DonateModalProps = {
+export interface DonateModalProps {
     isOpened: boolean;
     setIsOpened: (isOpened: boolean) => void;
 }
@@ -24,7 +24,7 @@ export const DonateModal = ({ isOpened, setIsOpened }: DonateModalProps) => {
                     <Heading>
                         Спасибо за использование MuscleQuiz!
                     </Heading>
-                    <ModalCloseButton onPress={() => setIsOpened(false)}>
+                    <ModalCloseButton onPress={() => { setIsOpened(false); }}>
                         <Icon as={CloseIcon}/>
                     </ModalCloseButton>
                 </ModalHeader>

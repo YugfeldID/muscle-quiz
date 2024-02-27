@@ -1,4 +1,4 @@
-import { Muscle, MuscleProperty } from '../../models/Muscle';
+import { MuscleProperty } from '../../models/Muscle';
 import {
     DigitsReplaceWrongAnswersGenerationStrategy
 } from '../wrong_answer_strategies/DigitsReplaceWrongAnswersGenerationStrategy';
@@ -19,7 +19,7 @@ class BeginTestGenerator extends TestGenerator<string []> {
         new PatternReplaceWrongAnswersGenerationStrategy()
     ];
 
-    getQuestion(muscle: Muscle): string {
+    getQuestion(): string {
         return `Где начинается `;
     }
 

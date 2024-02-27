@@ -5,10 +5,10 @@ import { endTestGenerator } from './test_generators/EndTestGenerator';
 import { functionsTestGenerator } from './test_generators/FunctionsTestGenerator';
 import { nameTestGenerator } from './test_generators/NameTestGenerator';
 import { TestGenerator } from './test_generators/TestGenerator';
-import { TestSettings } from './TestSettings';
+import { DEFAULT_TESTS_COUNT } from './TestSettings';
 import { getRandomElement } from './utils/ArrayUtils';
 
-export type Score = {
+export interface Score {
     allAnswersCount: number;
     correctAnswersCount: number;
 }
@@ -25,7 +25,7 @@ export class TestScenario {
     private correctAnswersCount = 0;
     private muscles: Muscle[] = [];
 
-    private allAnswersCount = TestSettings.DEFAULT_TESTS_COUNT;
+    private allAnswersCount = DEFAULT_TESTS_COUNT;
 
     public start(muscles: Muscle[]): void {
         this.tests = [];

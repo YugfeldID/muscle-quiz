@@ -1,12 +1,14 @@
 import { MusclePropertyValue } from '../../models/Muscle';
-import { TestSettings } from '../TestSettings';
+import { DEFAULT_ANSWERS_SEPARATOR } from '../TestSettings';
 
 export function formatPropertyValueText(propertyValue: MusclePropertyValue): string {
     if (typeof propertyValue === 'string') {
         return firstLetterToLowerCase(propertyValue);
     } else if (Array.isArray(propertyValue)) {
-        return propertyValue.map(el => firstLetterToLowerCase(el)).join(`${TestSettings.DEFAULT_ANSWERS_SEPARATOR}\n`);
+        return propertyValue.map(el => firstLetterToLowerCase(el)).join(`${DEFAULT_ANSWERS_SEPARATOR}\n`);
     }
+
+    return "";
 }
 
 function firstLetterToLowerCase(str: string): string {

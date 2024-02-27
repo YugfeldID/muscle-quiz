@@ -31,7 +31,7 @@ export const TestFinishScreen = () => {
                     pb="$4"
                     size="lg"
                     textAlign="center"
-                    bold="true">
+                    bold>
                     {ratingModel.mainText}
                 </Text>
                 <Text

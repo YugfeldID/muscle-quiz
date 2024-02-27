@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Muscle, MuscleProperty, MusclePropertyValue } from '../../models/Muscle';
 import { Answer } from '../../models/TestModel';
 import { formatPropertyValueText } from '../utils/MusclePropertyUtils';
@@ -27,7 +28,7 @@ export class DigitsReplaceWrongAnswersGenerationStrategy implements WrongAnswers
         const result: Answer[] = [];
 
         const rightAnswers = muscles[rightAnswerIndex].getProperty(testProperty);
-        let text = formatPropertyValueText(rightAnswers);
+        const text = formatPropertyValueText(rightAnswers);
         const exclusions: string[] = [];
 
         const replaceStrategy = this.replaceStrategies.find((strategy) => strategy.isApplicable(text));
@@ -37,9 +38,10 @@ export class DigitsReplaceWrongAnswersGenerationStrategy implements WrongAnswers
         }
 
         for (let i = 0; i < options.answersCount; i++) {
-            let replacedText = replaceStrategy.replace(text, exclusions);
+            const replacedText = replaceStrategy.replace(text, exclusions);
             exclusions.push(replacedText);
             result.push({
+                id: uuidv4(),
                 text: replacedText,
                 isRight: false
             })
@@ -60,8 +62,8 @@ export class DigitsReplaceWrongAnswersGenerationStrategy implements WrongAnswers
         return false;
     }
 
-    private checkIfContainsDigit(property: String): boolean {
+    private checkIfContainsDigit(property: string): boolean {
         return (property.match(DigitsReplaceWrongAnswersGenerationStrategy.DIGIT_REGEXP)?.length ?? 0
                ) > 0;
-    };
+    }
 }

@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Muscle, MuscleProperty, MusclePropertyValue } from '../../models/Muscle';
 import { Answer, TestModel } from '../../models/TestModel';
-import { TestSettings } from '../TestSettings';
+import { DEFAULT_ANSWERS_COUNT } from '../TestSettings';
 import { getRandomIndex, randomSort } from '../utils/ArrayUtils';
 import { formatPropertyValueText } from '../utils/MusclePropertyUtils';
 import { WrongAnswersGenerationStrategy } from '../wrong_answer_strategies/WrongAnswersGenerationStrategy';
@@ -16,7 +16,7 @@ export abstract class TestGenerator<T extends MusclePropertyValue> {
     abstract getTestMuscleProperty(): MuscleProperty<T>;
 
     generateTest(muscles: Muscle[]): TestModel {
-        const rightAnswerIndex = getRandomIndex(muscles)!
+        const rightAnswerIndex = getRandomIndex(muscles) ?? 0;
         const muscle = muscles[rightAnswerIndex];
 
         return new TestModel({
@@ -40,7 +40,7 @@ export abstract class TestGenerator<T extends MusclePropertyValue> {
     ): Answer[] {
         const excludedIndexes = [];
         let attemptsCount = this.wrongAnswersGenerators.length;
-        const wrongAnswersCount = TestSettings.DEFAULT_ANSWERS_COUNT - 1;
+        const wrongAnswersCount = DEFAULT_ANSWERS_COUNT - 1;
         const result: Answer[] = [];
         const rightAnswers = formatPropertyValueText(muscles[rightAnswerIndex].getProperty(testProperty));
 
@@ -51,7 +51,7 @@ export abstract class TestGenerator<T extends MusclePropertyValue> {
                 return result;
             }
 
-            let generator = this.wrongAnswersGenerators[generatorIndex];
+            const generator = this.wrongAnswersGenerators[generatorIndex];
             if (generator.isApplicable(muscles[rightAnswerIndex], testProperty)) {
                 generator.getWrongAnswers(
                     muscles,
@@ -59,7 +59,7 @@ export abstract class TestGenerator<T extends MusclePropertyValue> {
                     testProperty,
                     { answersCount: wrongAnswersCount }
                 ).forEach(el => {
-                    let formattedText = formatPropertyValueText(el.text);
+                    const formattedText = formatPropertyValueText(el.text);
                     if (formattedText !== rightAnswers &&
                         result.every((existed) => existed.text !== formattedText)
                     ) {

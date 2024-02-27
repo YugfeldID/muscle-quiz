@@ -1,4 +1,3 @@
-import { MusclePropertyValue } from '../../../models/Muscle';
 import { getRandomElement, randomDigitFromRange } from '../../utils/ArrayUtils';
 import { DigitReplaceStrategy } from './DigitReplaceStrategy';
 
@@ -8,7 +7,7 @@ export class VertebraReplaceStrategy extends DigitReplaceStrategy {
 
     private static VERTEBRA_NAMES = ['C', 'T', 'L', 'S'];
 
-    isApplicable<T extends MusclePropertyValue>(text: string): boolean {
+    isApplicable(text: string): boolean {
         return (text.match(VertebraReplaceStrategy.VERTEBRA_REGEXP)?.length ?? 0
                ) > 0;
     }

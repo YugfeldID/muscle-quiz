@@ -1,4 +1,4 @@
-import { Muscle, MuscleProperty } from '../../models/Muscle';
+import { MuscleProperty } from '../../models/Muscle';
 import { SimpleWrongAnswersGenerationStrategy } from '../wrong_answer_strategies/SimpleWrongAnswersGenerationStrategy';
 import { WrongAnswersGenerationStrategy } from '../wrong_answer_strategies/WrongAnswersGenerationStrategy';
 import { TestGenerator } from './TestGenerator';
@@ -8,7 +8,7 @@ class NameTestGenerator extends TestGenerator<string> {
         new SimpleWrongAnswersGenerationStrategy()
     ];
 
-    getQuestion(muscle: Muscle): string {
+    getQuestion(): string {
         return `Как называется `;
     }
 

@@ -1,7 +1,7 @@
 export function* getConstantLenghtCombinations<T extends string>(
     array: T[],
     combinationItemsCount: number,
-    start: number = 0,
+    start = 0,
     prev: T[] = []
 ): Iterable<T[]> {
     if (prev.some(el => JSON.stringify(el) == JSON.stringify(array))) {

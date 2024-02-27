@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Muscle, MuscleProperty, MusclePropertyValue } from '../../models/Muscle';
 import { Answer } from '../../models/TestModel';
 import { getRandomIndex } from '../utils/ArrayUtils';
@@ -34,6 +35,7 @@ export class NotCompleteWrongAnswersGenerationStrategy implements WrongAnswersGe
             const text = formatPropertyValueText(combinations[wrongAnswerIndex]);
 
             result.push({
+                id: uuidv4(),
                 text: text,
                 isRight: false
             });

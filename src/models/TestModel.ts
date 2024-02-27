@@ -1,18 +1,18 @@
 import { Muscle } from './Muscle';
 
-export type Answer = {
+export interface Answer {
     id: string,
     text: string,
     isRight: boolean,
 }
 
-type TestModelParams = {
-    question: String;
+interface TestModelParams {
+    question: string;
     muscle: Muscle;
     answers: Answer[];
 }
 export class TestModel {
-    question: String;
+    question: string;
     muscle: Muscle;
     answers: Answer[];
 

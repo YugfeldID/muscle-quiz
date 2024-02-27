@@ -1,4 +1,3 @@
-import { MusclePropertyValue } from '../../../models/Muscle';
 import { randomDigitFromRange } from '../../utils/ArrayUtils';
 import { DigitReplaceStrategy } from './DigitReplaceStrategy';
 
@@ -6,7 +5,7 @@ export class SingleDigitReplaceStrategy extends DigitReplaceStrategy {
     // digits greater than 1
     private static DIGIT_REGEXP = /(?!(?:1)$)\d+/;
 
-    isApplicable<T extends MusclePropertyValue>(text: string): boolean {
+    isApplicable(text: string): boolean {
         return (text.match(SingleDigitReplaceStrategy.DIGIT_REGEXP)?.length ?? 0
                ) > 0;
     }

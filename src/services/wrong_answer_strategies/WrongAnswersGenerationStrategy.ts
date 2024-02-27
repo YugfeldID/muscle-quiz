@@ -1,9 +1,9 @@
 import { Muscle, MuscleProperty, MusclePropertyValue } from '../../models/Muscle';
 import { Answer } from '../../models/TestModel';
 
-export type WrongAnswersGenerationOptions = {
+export interface WrongAnswersGenerationOptions {
     answersCount: number,
-};
+}
 
 export abstract class WrongAnswersGenerationStrategy {
     abstract getWrongAnswers<T extends MusclePropertyValue>(muscles: Muscle[], rightAnswerIndex: number, testProperty: MuscleProperty<T>, options?: WrongAnswersGenerationOptions): Answer[];

@@ -1,11 +1,10 @@
-import { MusclePropertyValue } from '../../../models/Muscle';
 import { randomDigitFromRange } from '../../utils/ArrayUtils';
 import { DigitReplaceStrategy } from './DigitReplaceStrategy';
 
 export class DigitsRangeReplaceStrategy extends DigitReplaceStrategy {
     private static DIGIT_RANGE_REGEXP = /\d+ - \d+/;
 
-    isApplicable<T extends MusclePropertyValue>(text: string): boolean {
+    isApplicable(text: string): boolean {
         return (text.match(DigitsRangeReplaceStrategy.DIGIT_RANGE_REGEXP)?.length ?? 0
                ) > 0;
     }
@@ -15,7 +14,7 @@ export class DigitsRangeReplaceStrategy extends DigitReplaceStrategy {
         if (!range?.length) {
             return text;
         }
-        let digits = range[0].split(' - ');
+        const digits = range[0].split(' - ');
         const firstDigit = Number(digits[0]);
         const secondDigit = Number(digits[1]);
         const firstDigitForReplace = randomDigitFromRange(2, Math.max(secondDigit, 9), [firstDigit]);

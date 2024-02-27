@@ -21,27 +21,27 @@ export const MuscleScreen = (props: MuscleScreenProps) => {
                 <ScrollView>
                     <Box p="$8">
                         <Box style={styles.row} pb="$4">
-                            <Text style={styles.column} bold="true">Название</Text>
+                            <Text style={styles.column} bold>Название</Text>
                             <Text style={styles.column}>{muscle.getProperty(MuscleProperty.rusName)}</Text>
                         </Box>
                         <Box style={styles.row} pb="$4">
-                            <Text style={styles.column} bold="true">Название (англ.)</Text>
+                            <Text style={styles.column} bold>Название (англ.)</Text>
                             <Text style={styles.column}>{muscle.getProperty(MuscleProperty.engName)}</Text>
                         </Box>
                         <Box style={styles.row} pb="$4">
-                            <Text style={styles.column} bold="true">Начало</Text>
+                            <Text style={styles.column} bold>Начало</Text>
                             <Box style={styles.column}>{muscle.getProperty(MuscleProperty.begin).map((value) =>
                                 <Text key={value}>&#x2022; {value};</Text>)}
                             </Box>
                         </Box>
                         <Box style={styles.row} pb="$4">
-                            <Text style={styles.column} bold="true">Прикрепление</Text>
+                            <Text style={styles.column} bold>Прикрепление</Text>
                             <Box style={styles.column}>{muscle.getProperty(MuscleProperty.end).map((value) =>
                                 <Text key={value}>&#x2022; {value};</Text>)}
                             </Box>
                         </Box>
                         <Box style={styles.row} pb="$4">
-                            <Text style={styles.column} bold="true">Функции</Text>
+                            <Text style={styles.column} bold>Функции</Text>
                             <Box style={styles.column}>{muscle.getProperty(MuscleProperty.functions).map((value) =>
                                 <Text key={value}>&#x2022; {value};</Text>)}
                             </Box>

@@ -1,4 +1,4 @@
-export function getRandomIndex(array: Array<unknown>, excludedIndexes?: Array<number>): number | null {
+export function getRandomIndex(array: unknown[], excludedIndexes?: number[]): number | null {
     if (excludedIndexes) {
         const set = new Set(excludedIndexes.filter((el) => el < array.length));
         if (set.size === array.length) {
@@ -7,19 +7,19 @@ export function getRandomIndex(array: Array<unknown>, excludedIndexes?: Array<nu
     }
 
     const randIndex = Math.floor(Math.random() * array.length);
-    if (excludedIndexes && excludedIndexes?.includes(randIndex)) {
+    if (excludedIndexes && excludedIndexes.includes(randIndex)) {
         return getRandomIndex(array, excludedIndexes);
     } else {
         return randIndex;
     }
 }
 
-export function getRandomElement<T>(array: Array<T>, excludedIndexes?: number[]): T | null {
-    let randomIndex = getRandomIndex(array, excludedIndexes);
+export function getRandomElement<T>(array: T[], excludedIndexes?: number[]): T | null {
+    const randomIndex = getRandomIndex(array, excludedIndexes);
     return randomIndex !== null ? array[randomIndex] : null;
 }
 
-export function randomSort<T>(array: Array<T>): Array<T> {
+export function randomSort<T>(array: T[]): T[] {
     let currentIndex = array.length,  randomIndex;
 
     while (currentIndex > 0) {

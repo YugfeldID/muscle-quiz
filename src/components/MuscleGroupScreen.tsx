@@ -32,8 +32,12 @@ export const MuscleGroupScreen = (props: MuscleGroupProps) => {
     const muscleGroup = useMemo(() => muscleGroupsStorage.musclesGroups.get(muscleGroupName), []);
 
     useEffect(() => {
+        const muscleGroup = muscleGroupsStorage.musclesGroups.get(muscleGroupName);
+        if (!muscleGroup) {
+            return;
+        }
         setDataSource([
-            ...muscleGroupsStorage.musclesGroups.get(muscleGroupName)?.muscles.values()
+            ...muscleGroup.muscles.values()
         ]);
     }, [muscleGroupName]);
 
@@ -45,7 +49,10 @@ export const MuscleGroupScreen = (props: MuscleGroupProps) => {
     }
 
     function onStartTestPress() {
-        testScenario.start([...muscleGroup?.muscles.values()]);
+        if (!muscleGroup) {
+            return;
+        }
+        testScenario.start([...muscleGroup.muscles.values()]);
         navigation.navigate<'TestScreen'>('TestScreen');
     }
 
@@ -55,17 +62,21 @@ export const MuscleGroupScreen = (props: MuscleGroupProps) => {
                 data={dataSource}
                 renderItem={({ item, index }) => (
                     <Pressable
-                        key={item.getProperty(MuscleProperty.rusName)}
-                        onPress={() => onPress(item)}>
-                        {({ pressed }) => {
+                        key={(item as Muscle
+                        ).getProperty(MuscleProperty.rusName)}
+                        onPress={() => {
+                            onPress(item as Muscle);
+                        }}>
+                        {({ pressed }: { pressed?: boolean | undefined }) => {
                             return (
                                 <Box pt="$8" pl="$8" pr="$8">
                                     <HStack style={[
-                                        scaleOnPress(pressed),
+                                        scaleOnPress(pressed ?? false),
                                         styles.muscleRow
                                     ]}>
                                         <Box space="md" pb="$8">
-                                            <Text>{item.getProperty(MuscleProperty.rusName)}</Text>
+                                            <Text>{(item as Muscle
+                                            ).getProperty(MuscleProperty.rusName)}</Text>
                                         </Box>
                                         <Icon as={ChevronRightIcon} mr="$2" w="$5" h="$5" style={styles.iconContainer}/>
                                     </HStack>
@@ -78,7 +89,7 @@ export const MuscleGroupScreen = (props: MuscleGroupProps) => {
                     </Pressable>
                 )}
                 numColumns={1}
-                keyExtractor={(item, index) => index}
+                keyExtractor={(item, index) => index.toString()}
             />
             <Center m="$8">
                 <Button size="lg" onPress={onStartTestPress}>

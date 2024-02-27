@@ -1,5 +1,3 @@
-import { MusclePropertyValue } from '../../../models/Muscle';
-
 export abstract class DigitReplaceStrategy {
     abstract replaceRaw(text: string): string;
 
@@ -11,5 +9,5 @@ export abstract class DigitReplaceStrategy {
         return result;
     }
 
-    abstract isApplicable<T extends MusclePropertyValue>(text: string): boolean;
+    abstract isApplicable(text: string): boolean;
 }

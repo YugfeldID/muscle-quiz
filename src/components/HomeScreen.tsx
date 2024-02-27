@@ -2,7 +2,8 @@ import { Box, Center, Fab, FabIcon, FavouriteIcon, Pressable, Text, VStack } fro
 import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { ImageBackground, SafeAreaView, StyleSheet } from 'react-native';
+import { ImageBackground, ImageSourcePropType, SafeAreaView, StyleSheet } from 'react-native';
+import { Muscle } from '../models/Muscle';
 import { muscleGroupsStorage } from '../services/MuscleGroupsStorage';
 import { testScenario } from '../services/TestScenario';
 import { scaleOnPress } from '../services/utils/ScaleUtils';
@@ -18,8 +19,8 @@ export const HomeScreen = () => {
     }
 
     function onPressTest() {
-        let muscles = [...muscleGroupsStorage.musclesGroups.values()]
-        .reduce((accumulator, muscleGroup) => {
+        const muscles = [...muscleGroupsStorage.musclesGroups.values()]
+        .reduce((accumulator: Muscle[], muscleGroup) => {
             return accumulator.concat(...muscleGroup.muscles.values());
         }, []);
         testScenario.start(muscles)
@@ -29,13 +30,13 @@ export const HomeScreen = () => {
     return (
         <SafeAreaView style={styles.mainContainer}>
             <ImageBackground
-                source={require('../data/images/muscles.png')}
+                source={require('../data/images/muscles.png') as ImageSourcePropType}
                 resizeMode="cover"
                 style={styles.image}
                 imageStyle={{ opacity: 0.3 }}>
 
                 <Center>
-                    <Box h="$60" justifyContent="center">
+                    <Box justifyContent="center">
                         <VStack space="md">
                             <HomeScreenButton
                                 onPress={onPressMuscles}
@@ -59,7 +60,7 @@ export const HomeScreen = () => {
                 bg="$red400"
                 placement="bottom right"
                 style={styles.donateButton}
-                onPress={() => setIsModalOpened(true)}>
+                onPress={() => { setIsModalOpened(true); }}>
                 <FabIcon as={FavouriteIcon}/>
             </Fab>
             <DonateModal
@@ -70,7 +71,7 @@ export const HomeScreen = () => {
     );
 };
 
-type HomeScreenButtonProps = {
+interface HomeScreenButtonProps {
     onPress: () => void;
     color: string;
     pressedColor: string;
@@ -80,13 +81,13 @@ const HomeScreenButton = ({ onPress, color, pressedColor, text }: HomeScreenButt
     return (
         <Pressable
             onPress={onPress}>
-            {({ pressed }) => {
+            {({ pressed }: { pressed?: boolean | undefined }) => {
                 return (
                     <Box w="$40" h="$16"
                          bg={pressed ? pressedColor : color}
                          borderRadius="$md"
                          style={[
-                             scaleOnPress(pressed),
+                             scaleOnPress(pressed ?? false),
                              styles.textContainer
                          ]}>
                         <Text size="md" color="white">{text}</Text>

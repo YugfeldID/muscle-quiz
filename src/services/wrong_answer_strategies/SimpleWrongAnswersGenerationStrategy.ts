@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Muscle, MuscleProperty, MusclePropertyValue } from '../../models/Muscle';
 import { Answer } from '../../models/TestModel';
 import { getRandomIndex } from '../utils/ArrayUtils';
@@ -22,9 +23,10 @@ export class SimpleWrongAnswersGenerationStrategy implements WrongAnswersGenerat
 
             excludedIndexes.push(wrongAnswerIndex);
             const propertyValue = muscles[wrongAnswerIndex].getProperty(testProperty);
-            let text = formatPropertyValueText(propertyValue);
+            const text = formatPropertyValueText(propertyValue);
 
             result.push({
+                id: uuidv4(),
                 text: text,
                 isRight: false
             });
@@ -32,7 +34,7 @@ export class SimpleWrongAnswersGenerationStrategy implements WrongAnswersGenerat
         return result;
     }
 
-    isApplicable<T extends MusclePropertyValue>(muscle: Muscle, testProperty: MuscleProperty<T>): boolean {
+    isApplicable(): boolean {
         return true;
     }
 }

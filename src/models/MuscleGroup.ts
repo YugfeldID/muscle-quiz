@@ -1,7 +1,8 @@
+import { ImageSourcePropType } from 'react-native';
 import { Muscle } from './Muscle';
 
-export type MuscleGroup = {
+export interface MuscleGroup {
     name: string;
-    image?: unknown;
+    image?: ImageSourcePropType;
     muscles: Map<string, Muscle>;
 }

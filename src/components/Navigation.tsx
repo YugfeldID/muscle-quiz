@@ -1,15 +1,14 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { ParamListBase } from '@react-navigation/routers/src/types';
 import React from 'react';
-import { Muscle } from '../models/Muscle';
-import { MuscleGroup } from '../models/MuscleGroup';
 import { HomeScreen } from './HomeScreen';
 import { MuscleGroupScreen } from './MuscleGroupScreen';
 import { MuscleGroupsScreen } from './MuscleGroupsScreen';
 import { MuscleScreen } from './MuscleScreen';
 import { TestScreen } from './TestScreen';
 
-export type RootStackParamList = {
+export interface RootStackParamList extends ParamListBase {
     HomeScreen: undefined,
     MuscleGroupsScreen: undefined,
     MuscleGroupScreen: {
@@ -20,7 +19,7 @@ export type RootStackParamList = {
         muscleGroupName: string,
     },
     TestScreen: undefined,
-};
+}
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
