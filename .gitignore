@@ -8,6 +8,10 @@ node_modules/
 dist/
 web-build/
 
+# IDE
+.idea
+.vscode
+
 # Native
 *.orig.*
 *.jks
