@@ -74,7 +74,7 @@ export const MuscleGroupScreen = (props: MuscleGroupProps) => {
                                         scaleOnPress(pressed ?? false),
                                         styles.muscleRow
                                     ]}>
-                                        <Box space="md" pb="$8">
+                                        <Box pb="$8">
                                             <Text>{(item as Muscle
                                             ).getProperty(MuscleProperty.rusName)}</Text>
                                         </Box>

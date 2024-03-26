@@ -27,7 +27,7 @@ const availableRatings: Map<ScoreLevel, TestRatingModelInternal> = new Map<Score
         {
             scoreLevel: ScoreLevel.Excellent,
             text: 'Браво! Ты просто анатомический ниндзя, уровень бог! 🌟 Может, пора преподавать? 😉',
-            image: require('../data/images/test-result-exellent.png') as ImageSourcePropType,
+            image: require('../data/images/test_results/test-result-exellent.png') as ImageSourcePropType,
         }
     ],
     [
@@ -35,7 +35,7 @@ const availableRatings: Map<ScoreLevel, TestRatingModelInternal> = new Map<Score
         {
             scoreLevel: ScoreLevel.Great,
             text: 'Ух ты! Ты на верном пути к анатомическому Олимпу. 🏆 Еще чуть-чуть и ты там!',
-            image: require('../data/images/test-result-great.png') as ImageSourcePropType,
+            image: require('../data/images/test_results/test-result-great.png') as ImageSourcePropType,
         }
     ],
     [
@@ -43,7 +43,7 @@ const availableRatings: Map<ScoreLevel, TestRatingModelInternal> = new Map<Score
         {
             scoreLevel: ScoreLevel.Normal,
             text: 'Неплохо! Ты как анатомический детектив, разгадывающий тайны тела. 🕵️‍♂️ Еще немного тренировки и ты станешь мастером!',
-            image: require('../data/images/test-result-normal.png') as ImageSourcePropType,
+            image: require('../data/images/test_results/test-result-normal.png') as ImageSourcePropType,
         }
     ],
     [
@@ -51,7 +51,7 @@ const availableRatings: Map<ScoreLevel, TestRatingModelInternal> = new Map<Score
         {
             scoreLevel: ScoreLevel.Bad,
             text: 'Ой-ой, кажется, анатомия подшутила над тобой! 🤡 Но не сдавайся, ведь каждый великий начинал с малого. Время за книги!',
-            image: require('../data/images/test-result-bad.png') as ImageSourcePropType,
+            image: require('../data/images/test_results/test-result-bad.png') as ImageSourcePropType,
         }
     ]
 ]);

@@ -56,7 +56,7 @@ export class DigitsReplaceWrongAnswersGenerationStrategy implements WrongAnswers
         }
 
         if (Array.isArray(property)) {
-            return property.some((el) => this.checkIfContainsDigit(el));
+            return property.some((el) => typeof el === 'string' && this.checkIfContainsDigit(el));
         }
 
         return false;

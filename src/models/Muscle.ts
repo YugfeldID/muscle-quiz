@@ -1,4 +1,6 @@
-export type MusclePropertyValue = string | string [] | undefined;
+import { ImageSourcePropType } from 'react-native';
+
+export type MusclePropertyValue = string | string [] | ImageSourcePropType[] | undefined;
 
 // eslint-disable-next-line
 export class MuscleProperty<T extends MusclePropertyValue> {
@@ -7,7 +9,7 @@ export class MuscleProperty<T extends MusclePropertyValue> {
     static begin = new MuscleProperty<string[]>('begin');
     static end = new MuscleProperty<string[]>('end');
     static functions = new MuscleProperty<string[]>('functions');
-    static picture = new MuscleProperty<string | undefined>('picture');
+    static pictures = new MuscleProperty<ImageSourcePropType[] | undefined>('picture');
 
     static availableProperties: MuscleProperty<MusclePropertyValue>[] = [
         MuscleProperty.rusName,
@@ -15,7 +17,7 @@ export class MuscleProperty<T extends MusclePropertyValue> {
         MuscleProperty.begin,
         MuscleProperty.end,
         MuscleProperty.functions,
-        MuscleProperty.picture
+        MuscleProperty.pictures
     ]
     name: string;
 

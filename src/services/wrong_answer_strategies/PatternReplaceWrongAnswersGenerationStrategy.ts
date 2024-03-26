@@ -52,7 +52,8 @@ export class PatternReplaceWrongAnswersGenerationStrategy implements WrongAnswer
         }
 
         if (Array.isArray(property)) {
-            return property.some((el) => this.checkIfContainsPattern(el));
+            return property.some((el) => typeof el === 'string'
+                                         && this.checkIfContainsPattern(el));
         }
 
         return false;

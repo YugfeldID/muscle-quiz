@@ -1,13 +1,12 @@
 import { ImageSourcePropType } from 'react-native';
-import back from '../data/muscles/back.json'
-import hip from '../data/muscles/hip.json'
-import neck from '../data/muscles/neck.json'
-import shin from '../data/muscles/shin.json'
-import shoulder from '../data/muscles/shoulder.json'
-import shoulder_girdle from '../data/muscles/shoulder_girdle.json'
-import stomach from '../data/muscles/stomach.json'
+import { back } from '../data/muscles/back';
+import { hip } from '../data/muscles/hip';
+import { neck } from '../data/muscles/neck';
+import { shin } from '../data/muscles/shin';
+import { shoulder } from '../data/muscles/shoulder';
+import { shoulderGridle } from '../data/muscles/shoulderGridle';
+import { stomach } from '../data/muscles/stomach';
 import { MuscleGroup } from '../models/MuscleGroup';
-import { parseMuscles } from './MuscleParser';
 
 class MuscleGroupsStorage {
     musclesGroups: Map<string, MuscleGroup> = new Map<string, MuscleGroup>([
@@ -15,56 +14,56 @@ class MuscleGroupsStorage {
             'Спина',
             {
                 name: 'Спина',
-                image: require('../data/images/back-muscles.png') as ImageSourcePropType,
-                muscles: parseMuscles(back.muscles)
+                image: require('../data/images/muscle_groups/back-muscles.png') as ImageSourcePropType,
+                muscles: back
             }
         ],
         [
             'Живот',
             {
                 name: 'Живот',
-                image: require('../data/images/stomach-muscles.png') as ImageSourcePropType,
-                muscles: parseMuscles(stomach.muscles)
+                image: require('../data/images/muscle_groups/stomach-muscles.png') as ImageSourcePropType,
+                muscles: stomach
             }
         ],
         [
             'Шея',
             {
                 name: 'Шея',
-                image: require('../data/images/neck-muscles.png') as ImageSourcePropType,
-                muscles: parseMuscles(neck.muscles)
+                image: require('../data/images/muscle_groups/neck-muscles.png') as ImageSourcePropType,
+                muscles: neck
             }
         ],
         [
             'Бедро',
             {
                 name: 'Бедро',
-                image: require('../data/images/hip-muscles.png') as ImageSourcePropType,
-                muscles: parseMuscles(hip.muscles)
+                image: require('../data/images/muscle_groups/hip-muscles.png') as ImageSourcePropType,
+                muscles: hip
             }
         ],
         [
             'Голень',
             {
                 name: 'Голень',
-                image: require('../data/images/shin-muscles.png') as ImageSourcePropType,
-                muscles: parseMuscles(shin.muscles)
+                image: require('../data/images/muscle_groups/shin-muscles.png') as ImageSourcePropType,
+                muscles: shin
             }
         ],
         [
             'Плечевой пояс',
             {
                 name: 'Плечевой пояс',
-                image: require('../data/images/shoulder_girdle.png') as ImageSourcePropType,
-                muscles: parseMuscles(shoulder_girdle.muscles)
+                image: require('../data/images/muscle_groups/shoulder_girdle.png') as ImageSourcePropType,
+                muscles: shoulderGridle
             }
         ],
         [
             'Плечо',
             {
                 name: 'Плечо',
-                image: require('../data/images/shoulder-muscles.png') as ImageSourcePropType,
-                muscles: parseMuscles(shoulder.muscles)
+                image: require('../data/images/muscle_groups/shoulder-muscles.png') as ImageSourcePropType,
+                muscles: shoulder
             }
         ]
     ]);

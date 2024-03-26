@@ -5,7 +5,8 @@ export function formatPropertyValueText(propertyValue: MusclePropertyValue): str
     if (typeof propertyValue === 'string') {
         return firstLetterToLowerCase(propertyValue);
     } else if (Array.isArray(propertyValue)) {
-        return propertyValue.map(el => firstLetterToLowerCase(el)).join(`${DEFAULT_ANSWERS_SEPARATOR}\n`);
+        // eslint-disable-next-line
+        return propertyValue.map(el => firstLetterToLowerCase(el.toString())).join(`${DEFAULT_ANSWERS_SEPARATOR}\n`);
     }
 
     return "";
