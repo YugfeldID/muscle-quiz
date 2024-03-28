@@ -8,11 +8,13 @@ import { muscleGroupsStorage } from '../services/MuscleGroupsStorage';
 import { testScenario } from '../services/TestScenario';
 import { scaleOnPress } from '../services/utils/ScaleUtils';
 import { DonateModal } from './DonateModal';
+import { LicenseModal } from './LicenseModal';
 import { RootStackParamList } from './Navigation';
 
 export const HomeScreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-    const [isModalOpened, setIsModalOpened] = useState(false);
+    const [isDonateModalOpened, setIsDonateModalOpened] = useState(false);
+    const [isAboutModalOpened, setIsAboutModalOpened] = useState(false);
 
     function onPressMuscles() {
         navigation.navigate<'MuscleGroupsScreen'>('MuscleGroupsScreen');
@@ -51,6 +53,13 @@ export const HomeScreen = () => {
                                 pressedColor="$blue600"
                                 text="Начать тест"
                             />
+
+                            <HomeScreenButton
+                                onPress={() => {setIsAboutModalOpened(true)}}
+                                color="$warmGray400"
+                                pressedColor="$warmGray600"
+                                text="O программе"
+                            />
                         </VStack>
                     </Box>
                 </Center>
@@ -60,12 +69,16 @@ export const HomeScreen = () => {
                 bg="$red400"
                 placement="bottom right"
                 style={styles.donateButton}
-                onPress={() => { setIsModalOpened(true); }}>
+                onPress={() => { setIsDonateModalOpened(true); }}>
                 <FabIcon as={FavouriteIcon}/>
             </Fab>
             <DonateModal
-                isOpened={isModalOpened}
-                setIsOpened={setIsModalOpened}
+                isOpened={isDonateModalOpened}
+                setIsOpened={setIsDonateModalOpened}
+            />
+            <LicenseModal
+                isOpened={isAboutModalOpened}
+                setIsOpened={setIsAboutModalOpened}
             />
         </SafeAreaView>
     );
