@@ -24,13 +24,15 @@ export const MuscleScreen = (props: MuscleScreenProps) => {
                         {pictures && (
                             <Box pb="$8" style={styles.imagesWithAttributeContainer}>
                                 <Box style={styles.imagesContainer}>
-                                    {pictures.map((picture) =>
-                                        <ImageBackground source={picture}
-                                                         style={styles.muscleImage}
-                                                         resizeMode="cover"
-                                                         imageStyle={{
-                                                             borderRadius: 6
-                                                         }}/>
+                                    {pictures.map((picture, index) =>
+                                        <ImageBackground
+                                            key={index}
+                                            source={picture}
+                                            style={styles.muscleImage}
+                                            resizeMode="cover"
+                                            imageStyle={{
+                                                borderRadius: 6
+                                            }}/>
                                     )}
                                 </Box>
                                 <Text size="2xs" pt="$2">

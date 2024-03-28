@@ -95,6 +95,62 @@ export const hip: Map<string, Muscle> = new Map<string, Muscle>([
                 ['Приводит бедро', 'Cлегка сгибает бедро в тазобедренном суставе', 'Вращает бедро наружу']
             ]
         ]))
+    ],
+    [
+        'Большая ягодичная мышца',
+        new Muscle(new Map<MuscleProperty<MusclePropertyValue>, MusclePropertyValue>([
+            [MuscleProperty.rusName, 'Большая ягодичная мышца'],
+            [MuscleProperty.engName, 'Gluteus maximus'],
+            [MuscleProperty.pictures, [require('../images/muscles/hip/GluteusMaximus.gif')]],
+            [MuscleProperty.begin, ['Задняя поверхность подвздошной кости', 'Крестцово-бугорная связка', 'Крестец', 'Копчик']],
+            [MuscleProperty.end, ['Ягодичная бугристость бедренной кости', 'Широкая фасция бедра']],
+            [
+                MuscleProperty.functions,
+                ['Разгибает бедро', 'Супинирует бедро', 'Стабилизирует тазобедренный сустав', 'Верхние волокна отводят бедро, нижние приводят']
+            ]
+        ]))
+    ],
+    [
+        'Двуглавая мышца бедра',
+        new Muscle(new Map<MuscleProperty<MusclePropertyValue>, MusclePropertyValue>([
+            [MuscleProperty.rusName, 'Двуглавая мышца бедра'],
+            [MuscleProperty.engName, 'Biceps femoris'],
+            [MuscleProperty.pictures, [require('../images/muscles/hip/BicepsFemoris.gif')]],
+            [MuscleProperty.begin, ['Седалищный бугор', 'Нижняя часть шероховатой линии бедра и латеральная межмышечная перегородка']],
+            [MuscleProperty.end, ['Головка малоберцовой кости', 'Латеральный мыщелок большеберцовой кости']],
+            [
+                MuscleProperty.functions,
+                ['Разгибает бедро', 'Сгибает и супинирует голень']
+            ]
+        ]))
+    ],
+    [
+        'Полуперепончатая мышца',
+        new Muscle(new Map<MuscleProperty<MusclePropertyValue>, MusclePropertyValue>([
+            [MuscleProperty.rusName, 'Полуперепончатая мышца'],
+            [MuscleProperty.engName, 'Semimembranosus'],
+            [MuscleProperty.pictures, [require('../images/muscles/hip/Semimembranosus.gif')]],
+            [MuscleProperty.begin, ['Седалищный бугор' ]],
+            [MuscleProperty.end, ['Медиальный мыщелок большеберцовой кости']],
+            [
+                MuscleProperty.functions,
+                ['Разгибает бедро', 'Сгибает голень в коленном суставе и немного вращает внутрь']
+            ]
+        ]))
+    ],
+    [
+        'Полусухожильная мышца',
+        new Muscle(new Map<MuscleProperty<MusclePropertyValue>, MusclePropertyValue>([
+            [MuscleProperty.rusName, 'Полусухожильная мышца'],
+            [MuscleProperty.engName, 'Semitendinosus'],
+            [MuscleProperty.pictures, [require('../images/muscles/hip/Semitendinosus.gif')]],
+            [MuscleProperty.begin, ['Седалищный бугор' ]],
+            [MuscleProperty.end, ['Бугристость большеберцовой кости']],
+            [
+                MuscleProperty.functions,
+                ['Разгибает бедро', 'Сгибает голень в коленном суставе и немного вращает внутрь']
+            ]
+        ]))
     ]
 ]);
 

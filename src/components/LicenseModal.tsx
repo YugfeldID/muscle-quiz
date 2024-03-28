@@ -15,6 +15,7 @@ export interface LicenseModalProps {
     isOpened: boolean;
     setIsOpened: (isOpened: boolean) => void;
 }
+
 export const LicenseModal = ({ isOpened, setIsOpened }: LicenseModalProps) => {
     return (
         <Modal
@@ -24,14 +25,21 @@ export const LicenseModal = ({ isOpened, setIsOpened }: LicenseModalProps) => {
                     <Heading>
                         О программе
                     </Heading>
-                    <ModalCloseButton onPress={() => { setIsOpened(false); }}>
+                    <ModalCloseButton onPress={() => {
+                        setIsOpened(false);
+                    }}>
                         <Icon as={CloseIcon}/>
                     </ModalCloseButton>
                 </ModalHeader>
                 <ModalBody mt="$4">
                     <Text>
-                        Изображения мышц, используемые в данном приложении распространяются по лицензии
-                        <strong> Creative Commons Attribution-Share Alike 2.1 Japan</strong>. Подробную информацию о лицензии можно найти
+                        Изображения мышц, используемые в данном приложении распространяются по лицензии {' '}
+                        <Text style={styles.licenseName}>
+                            Creative Commons Attribution-Share Alike 2.1 Japan.
+                        </Text>
+                    </Text>
+                    <Text>
+                        Подробную информацию о лицензии можно найти:
                     </Text>
                     <Link href="https://creativecommons.org/licenses/by-sa/2.1/jp/deed.en">
                         <LinkText>по ссылке</LinkText>
@@ -46,5 +54,11 @@ export const LicenseModal = ({ isOpened, setIsOpened }: LicenseModalProps) => {
 const styles = StyleSheet.create({
     modalHeader: {
         alignItems: 'flex-start'
+    },
+    licenseName: {
+        fontWeight: 'bold'
+    },
+    licenseLink: {
+        // display: 'in'
     }
 });
