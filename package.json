@@ -10,7 +10,9 @@
     "lint": "npm run lint:tsc && npm run lint:eslint",
     "lint:fix": "eslint . --fix",
     "lint:tsc": "tsc --noemit",
-    "lint:eslint": "eslint ."
+    "lint:eslint": "eslint .",
+    "prepare": "husky init",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
@@ -39,8 +41,20 @@
     "@types/react": "~18.2.14",
     "@types/uuid": "^9.0.8",
     "eslint": "^8.56.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
     "typescript": "^5.3.3",
     "typescript-eslint": "^7.0.2"
   },
-  "private": true
+  "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,json}": [
+      "eslint --fix"
+    ]
+  }
 }
