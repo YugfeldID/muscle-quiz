@@ -14,6 +14,7 @@ import {
     Text,
     VStack
 } from '@gluestack-ui/themed';
+import analytics from '@react-native-firebase/analytics';
 import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -46,9 +47,11 @@ export const TestScreen = () => {
         setChosenAnswer(answer);
     }
 
-    function onAnswerSubmit() {
+    async function onAnswerSubmit() {
         if (chosenAnswer) {
-            setIsAnswerCorrect(testScenario.commitAnswer(chosenAnswer));
+            const isCorrect = testScenario.commitAnswer(chosenAnswer);
+            setIsAnswerCorrect(isCorrect);
+            await analytics().logEvent("answer_submit__click", {"is_correct": isCorrect});
         }
     }
 

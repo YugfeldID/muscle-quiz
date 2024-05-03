@@ -1,4 +1,5 @@
 import { Box, Button, ButtonGroup, ButtonText, Center, Text } from '@gluestack-ui/themed';
+import analytics from '@react-native-firebase/analytics';
 import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types';
 import { StackActions, useNavigation } from '@react-navigation/native';
 import React, { useEffect, useMemo } from 'react';
@@ -15,9 +16,17 @@ export const TestFinishScreen = () => {
         navigation.setOptions({ headerRight: () => undefined });
     }, []);
 
-    function onRepeatTests() {
+    useEffect(() => {
+        void (async () => {
+            await analytics().logEvent("test_finished", {score: ratingModel.scoreLevel.toString()});
+        })();
+    }, [ratingModel]);
+
+    async function onRepeatTests() {
         testScenario.repeat();
         navigation.dispatch(StackActions.push('TestScreen'));
+
+        await analytics().logEvent("repeat_test__click");
     }
 
     function onReturnToMain() {

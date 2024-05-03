@@ -11,6 +11,7 @@ import {
     Pressable,
     Text
 } from '@gluestack-ui/themed';
+import analytics from '@react-native-firebase/analytics';
 import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -41,19 +42,24 @@ export const MuscleGroupScreen = (props: MuscleGroupProps) => {
         ]);
     }, [muscleGroupName]);
 
-    function onPress(muscle: Muscle) {
+    async function onPress(muscle: Muscle) {
+        const muscleName = muscle.getProperty(MuscleProperty.rusName);
         navigation.navigate<'MuscleScreen'>(
             'MuscleScreen',
-            { muscleName: muscle.getProperty(MuscleProperty.rusName), muscleGroupName }
+            { muscleName, muscleGroupName }
         );
+
+        await analytics().logEvent('muscle__click', { muscle_name: muscleName, muscle_group: muscleGroupName });
     }
 
-    function onStartTestPress() {
+    async function onStartTestPress() {
         if (!muscleGroup) {
             return;
         }
         testScenario.start([...muscleGroup.muscles.values()]);
         navigation.navigate<'TestScreen'>('TestScreen');
+
+        await analytics().logEvent('test__click', { source: 'muscle_group', muscle_group: muscleGroup.name });
     }
 
     return (
@@ -64,8 +70,8 @@ export const MuscleGroupScreen = (props: MuscleGroupProps) => {
                     <Pressable
                         key={(item as Muscle
                         ).getProperty(MuscleProperty.rusName)}
-                        onPress={() => {
-                            onPress(item as Muscle);
+                        onPress={async () => {
+                            await onPress(item as Muscle);
                         }}>
                         {({ pressed }: { pressed?: boolean | undefined }) => {
                             return (

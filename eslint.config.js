@@ -18,6 +18,12 @@ const config =  tseslint.config(
     {
         rules: {
             '@typescript-eslint/no-var-requires': 'off',
+            '@typescript-eslint/no-misused-promises': [
+                "error",
+                {
+                    "checksVoidReturn": false
+                }
+            ]
         }
     }
 );

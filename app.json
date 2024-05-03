@@ -16,10 +16,12 @@
     ],
     "ios": {
       "bundleIdentifier": "com.isfield.musclequiz",
+      "googleServicesFile": "./android/app/google-services.json",
       "supportsTablet": true
     },
     "android": {
       "package": "com.isfield.musclequiz",
+      "googleServicesFile": "./GoogleService-Info.plist",
       "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -34,6 +36,9 @@
       "eas": {
         "projectId": "49805c7d-d42f-4aa7-942a-341dd04af381"
       }
-    }
+    },
+    "plugins": [
+      "@react-native-firebase/app"
+    ]
   }
 }

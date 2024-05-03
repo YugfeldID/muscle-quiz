@@ -57,8 +57,5 @@ const styles = StyleSheet.create({
     },
     licenseName: {
         fontWeight: 'bold'
-    },
-    licenseLink: {
-        // display: 'in'
     }
 });

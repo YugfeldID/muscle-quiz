@@ -1,4 +1,5 @@
 import { Box, Center, Fab, FabIcon, FavouriteIcon, Pressable, Text, VStack } from '@gluestack-ui/themed';
+import analytics from '@react-native-firebase/analytics';
 import { NavigationProp } from '@react-navigation/core/lib/typescript/src/types';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
@@ -15,18 +16,24 @@ export const HomeScreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const [isDonateModalOpened, setIsDonateModalOpened] = useState(false);
     const [isAboutModalOpened, setIsAboutModalOpened] = useState(false);
-
     function onPressMuscles() {
         navigation.navigate<'MuscleGroupsScreen'>('MuscleGroupsScreen');
     }
 
-    function onPressTest() {
+    async function onPressTest() {
         const muscles = [...muscleGroupsStorage.musclesGroups.values()]
         .reduce((accumulator: Muscle[], muscleGroup) => {
             return accumulator.concat(...muscleGroup.muscles.values());
         }, []);
-        testScenario.start(muscles)
+        testScenario.start(muscles);
         navigation.navigate<'TestScreen'>('TestScreen');
+
+        await analytics().logEvent('test__click', { source: 'home' });
+    }
+
+    async function onPressDonate() {
+        setIsDonateModalOpened(true);
+        await analytics().logEvent('donate__click');
     }
 
     return (
@@ -55,7 +62,9 @@ export const HomeScreen = () => {
                             />
 
                             <HomeScreenButton
-                                onPress={() => {setIsAboutModalOpened(true)}}
+                                onPress={() => {
+                                    setIsAboutModalOpened(true)
+                                }}
                                 color="$warmGray400"
                                 pressedColor="$warmGray600"
                                 text="O программе"
@@ -69,7 +78,7 @@ export const HomeScreen = () => {
                 bg="$red400"
                 placement="bottom right"
                 style={styles.donateButton}
-                onPress={() => { setIsDonateModalOpened(true); }}>
+                onPress={onPressDonate}>
                 <FabIcon as={FavouriteIcon}/>
             </Fab>
             <DonateModal
@@ -90,6 +99,7 @@ interface HomeScreenButtonProps {
     pressedColor: string;
     text: string;
 }
+
 const HomeScreenButton = ({ onPress, color, pressedColor, text }: HomeScreenButtonProps) => {
     return (
         <Pressable
@@ -127,6 +137,6 @@ const styles = StyleSheet.create({
     },
     donateButton: {
         opacity: 1,
-        margin: 10,
+        margin: 10
     }
 });
