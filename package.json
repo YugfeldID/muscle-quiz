@@ -47,11 +47,6 @@
     "typescript-eslint": "^7.0.2"
   },
   "private": true,
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "src/**/*.{ts,tsx,json}": [
       "eslint --fix"
